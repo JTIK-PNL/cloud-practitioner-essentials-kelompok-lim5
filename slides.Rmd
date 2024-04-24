@@ -1,7 +1,7 @@
 ---
-title: "Principles of Reactivity"
-author: "Joe Cheng [&lt;joe@rstudio.com&gt;](mailto:joe@rstudio.com)"
-date: "\\#ShinyDevConf — January 30, 2016"
+title: "cloud practitioner essentials"
+author: "Kelompok lima"
+date: " 16 April 2024"
 output:
   revealjs::revealjs_presentation:
     theme: night
@@ -17,13 +17,12 @@ output:
 
 ---
 
-Functions can be executed for one or both of the following reasons:
+Mengarahkan Traffic dengan Elastic Load Balancing:
 
-> 1. You want its return value.
-> 2. You want it to have **some other effect**.
+> 1. Elastic Load Balancing  **some other effect**.
 
 <div class="fragment">
-These are (a bit misleadingly) called _side effects_. Any effect that is not the return value is a side effect.
+Di modul sebelumnya kita telah berhasil memecahkan masalah scaling (penyesuaian kapasitas) dengan Amazon EC2 Auto Scaling. Tapi kita masih punya satu masalah lainnya terkait traffic (lalu lintas).
 </div>
 
 
@@ -101,131 +100,47 @@ runif(10)
 
 
 
-If executing your function/expression **leaves the state of the world a little different** than before it executed, **it has side effects**.
+Mari lihat situasinya di skenario kedai kopi.  **leaves the state of the world a little different**Sekarang kita memiliki 3 instance kasir yang disiapkan untuk menangani masalah ramainya pelanggan. **it has side effects**.
 
-But if "what happens in `func`, stays in `func`" (besides the return value), then it doesn't have side effects.
+Namun anehnya, kebanyakan dari mereka malah mengantre di satu instance kasir saja sehingga menyebabkan distribusi pelanggan yang tidak merata.
 
 
 
 ## Side effect quiz
 
-For each function, write Yes if it has side effects, and No if not.
+Masalah ini bisa terjadi karena saat pelanggan tersebut datang, mereka tak yakin harus menuju ke kasir yang mana.
+
 
 
 
 ## Question 1
 
-```r
-function(a, b) {
-  (b - a) / a
-}
-```
 
+1. Lantas apa solusinya?
 
-
-## Question 2
-
-```r
-function(values) {
-  globalenv()$values <- values
-  values
-}
-```
-
-
-
-## Question 3
-
-```r
-function() {
-  options(digits.secs = 6)
-  as.character(Sys.time())
-}
-```
-
-
-
-## Question 4
-
-```r
-function(df) {
-  df$foo <- factor(df$foo)
-  df
-}
-```
-
-
-
-## Question 5
-
-```r
-function() {
-  readLines("~/data/raw.txt")
-}
-```
-
-
-
-## Question 6
-
-```r
-function(values) {
-  hist(values, plot = TRUE)
-}
-```
-
-
-
-## Question 7
-
-```r
-function() {
-  # Create temp file, and delete when function exits
-  filePath <- tempfile(fileext = ".png")
-  on.exit(file.unlink(filePath))
-
-  # Plot to the temp file as PNG image
-  png(filePath); plot(cars); dev.off()
-
-  # Return the contents of the temp file
-  readBin(filePath, "raw", n = file.info(filePath)$size)
-}
-```
-
-
-
-## Answers
-
-1. No
-2. Yes
-3. Yes
-4. No
-5. No
-6. Yes
-7. Mostly no
 
 
 
 ---
 
-**Side effects make code harder to reason about,** since order of execution of different side-effecty functions can matter (in non-obvious ways).
+**Side effects make code harder to reason about,** Akan sangat membantu jika kita mempekerjakan satu pegawai yang bertugas untuk menerima dan mengonfirmasi reservasi dari para pelanggan saat masuk ke kedai kopi. Peran semacam ini biasa disebut dengan nama host--bukan mesin fisik yang kita bahas sebelumnya ya--dan biasanya ditempatkan di depan pintu kedai kopi.
 
-**But we still need them.** Without side effects, our programs are useless! (If a program executes but has no observable interactions with the world, you may as well have not executed it at all!)
+**But we still need them.** Host akan senantiasa mengarahkan setiap pelanggan yang baru masuk untuk berbaris di kasir dengan antrean terpendek. Dengan demikian, antrean pun akan merata di seluruh kasir sehingga pelanggan dapat terlayani dengan efisien.
 
 
 
 ## Reactive programming
 
 <div class="notes">
-Reactivity can be your best friend—or your worst enemy. If you follow some rules of the road, and trust them, then you'll end up moving in the right direction.
+Ide yang sama pun berlaku di lingkungan AWS. Katakanlah Anda memiliki beberapa EC2 instance yang menjalankan program serupa. Anda perlu mengarahkan setiap permintaan yang masuk untuk menuju ke EC2 instance tertentu. Anda juga harus memastikan bahwa distribusi beban kerja merata di seluruh EC2 instance sehingga tak ada satu instance pun yang menganggur.
 
-We haven't been very upfront about these rules; mostly I've disseminated them in replies to shiny-discuss threads. So even if you've been following Shiny development pretty closely, it's quite likely that some of the things I'll discuss today will be news to you.
+Proses dari apa yang sejak tadi kita bincangkan ini disebut dengan load balancing (menyeimbangkan beban). Sedangkan aplikasi yang dapat menerima permintaan lalu mengarahkannya ke instance untuk diproses disebut dengan load balancer (penyeimbang beban).
 
-One of my top priorities in 2016 is to get the message out there about how to use reactivity properly, and it starts right here, at this conference, in this tutorial. So your feedback is *most* welcome after the tutorial.
+Load balancer bertindak sebagai satu titik kontak untuk semua traffic web yang masuk ke Auto Scaling group Anda. Ini berarti saat Anda menambah atau menghapus Amazon EC2 instance sebagai respons terhadap jumlah traffic yang masuk, permintaan ini diarahkan ke load balancer terlebih dahulu. Barulah kemudian permintaan tersebut disebar ke berbagai sumber daya yang akan menanganinya.
 
-You ignore these principles at your peril! The temptation is especially strong among smart, experienced programmers. Resist it—at least until you've tried to do it the right way first. These aren't rules that people say but don't expect anyone to completely follow, like "write unit tests for every function", "floss after every meal", etc. These are more like, "bring your car to a stop when you come to a stop sign".
 
-If you've tried to do it the right way and still really want to break these rules, email me at joe@rstudio.com and let's talk about it. But please, do that before sinking weeks or months into your app, while I can still help you!
+
+
 </div>
 
 
@@ -240,43 +155,60 @@ If you've tried to do it the right way and still really want to break these rule
 > 6. Understands that reactive expressions are monads.
 
 <div class="notes">
-I'd like to propose a ladder of Shiny reactivity "enlightenment".
+Elastic Load Balancing
 
-Take a moment to read this list, then discuss with the people around you where you currently rank. Don't be shy or embarrassed if you're at level one or two, we're all here to learn! Go ahead, I'll give you three minutes.
+AWS memiliki layanan load balancer yang berkinerja tinggi, hemat biaya, highly available (sangat tersedia), dan dapat diskalakan secara otomatis. Tak usah Anda menginstal, mengelola, memperbarui, melakukan scaling, menangani kegagalan, dan ketersediaan layanannya. AWS yang mengurus itu semua.
 
-How many of you feel like you're at levels one or two?
+Perkenalkan Elastic Load Balancing (ELB), yaitu layanan AWS yang secara otomatis mendistribusikan traffic aplikasi yang masuk ke berbagai sumber daya, seperti Amazon EC2 instance.
 
-How many are at level three?
 
-How many are at level four?
+Elastic Load Balancing merupakan salah satu layanan terkelola pertama yang akan kita telaah dalam kelas ini. Layanan ini dirancang untuk mengatasi undifferentiated heavy lifting--telah kita bahas di modul 1--dari load balancing.
 
-Anyone besides Hadley and Winston at five or six?
+Sebagai permulaan, Elastic Load Balancing adalah regional construct (konstruksi regional). Ini berarti ELB berjalan di tingkat Region, bukan pada individu EC2 instance sehingga membuatnya highly available secara otomatis.
 
-So at level three, you can write quite complicated applications. And many of you have. This is a dangerous zone. Your apps generally work, but sometimes you struggle with why things are executing too much, or not enough. Each new feature you add to your app seems to increase the overall complexity superlinearly.
+ELB dapat diskalakan secara otomatis sehingga mampu menangani kepadatan traffic tanpa berdampak pada biaya per jamnya. Elastic Load Balancing dapat bekerja sama dengan Amazon EC2 Auto Scaling untuk membantu memastikan aplikasi yang berjalan di Amazon EC2 dapat memberikan kinerja dan ketersediaan tinggi.
 
-Our goal today is to get everyone, or at least most of you, to level four. When you have a firm grasp on the reactive primitives we've built into Shiny, you can build complicated networks of reactive expressions and observers, with confidence. Combine that knowledge with the new modules feature, which Garrett will talk about tomorrow, and you've got all the tools you need to write large yet maintainable Shiny apps.
+Mari kita ilustrasikan penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic.
 
-Level five or six is where the real fun begins. We won't get there today, but if you're interested in learning more, please let me know! I'd love to talk to you. Maybe we can organize a group vchat or webinar or something, and eventually spin that in to an article or three.
+Anggaplah di suatu pagi aplikasi Anda memiliki traffic yang normal. Lalu di siang hari, Anda mengadakan promo flash sale secara besar-besaran di aplikasi bisnis Anda, tak lama kemudian lalu lintas pun semakin meningkat.
+
+Saat traffic membanjiri aplikasi Anda, EC2 instance akan melakukan scaling out. Saat instance siap, Amazon EC2 Auto Scaling akan memberi tahu Elastic Load Balancing bahwa ia siap untuk menangani traffic.
+
+Katakanlah malam tiba dan promo flash sale pun berakhir. Ini membuat traffic pada aplikasi Anda semakin berkurang sehingga Amazon EC2 Auto Scaling harus melakukan scaling in. Artinya, ada beberapa EC2 instance yang akan diakhiri.
+
+Tapi sebelum itu, ELB akan berhenti mengirimkan traffic kepada instance yang akan diakhiri tersebut dan menunggu hingga permintaan selesai ditangani. Setelah selesai, barulah Amazon EC2 Auto Scaling bisa mengakhiri instance tanpa mengganggu aktivitas pelanggan yang ada.
+
+Selain untuk lalu lintas eksternal, Anda juga bisa menggunakan ELB untuk traffic di dalam arsitektur AWS. Mari kita lihat ilustrasikan bagaimana ELB berperan menangani komunikasi untuk setiap instance di antara bidang pemesanan dan produksi.
+
+
 </div>
 
 
 
 ## Exercise 1
 
-Open `Exercise_01.R` and complete the server function. Make the plot output show a simple plot of the first `nrows` rows of a built-in dataset.
+Elastic Load Balancing merupakan salah satu layanan terkelola pertama yang akan kita telaah dalam kelas ini. Layanan ini dirancang untuk mengatasi undifferentiated heavy lifting--telah kita bahas di modul 1--dari load balancing.
 
-You have 5 minutes!
+Sebagai permulaan, Elastic Load Balancing adalah regional construct (konstruksi regional). Ini berarti ELB berjalan di tingkat Region, bukan pada individu EC2 instance sehingga membuatnya highly available secara otomatis.
+
+ELB dapat diskalakan secara otomatis sehingga mampu menangani kepadatan traffic tanpa berdampak pada biaya per jamnya. Elastic Load Balancing dapat bekerja sama dengan Amazon EC2 Auto Scaling untuk membantu memastikan aplikasi yang berjalan di Amazon EC2 dapat memberikan kinerja dan ketersediaan tinggi.
+
+Mari kita ilustrasikan penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic.
+
+Anggaplah di suatu pagi aplikasi Anda memiliki traffic yang normal. Lalu di siang hari, Anda mengadakan promo flash sale secara besar-besaran di aplikasi bisnis Anda, tak lama kemudian lalu lintas pun semakin meningkat.
+
+Saat traffic membanjiri aplikasi Anda, EC2 instance akan melakukan scaling out. Saat instance siap, Amazon EC2 Auto Scaling akan memberi tahu Elastic Load Balancing bahwa ia siap untuk menangani traffic.
+
+Katakanlah malam tiba dan promo flash sale pun berakhir. Ini membuat traffic pada aplikasi Anda semakin berkurang sehingga Amazon EC2 Auto Scaling harus melakukan scaling in. Artinya, ada beberapa EC2 instance yang akan diakhiri.
+
+Tapi sebelum itu, ELB akan berhenti mengirimkan traffic kepada instance yang akan diakhiri tersebut dan menunggu hingga permintaan selesai ditangani. Setelah selesai, barulah Amazon EC2 Auto Scaling bisa mengakhiri instance tanpa mengganggu aktivitas pelanggan yang ada.
+
+Selain untuk lalu lintas eksternal, Anda juga bisa menggunakan ELB untuk traffic di dalam arsitektur AWS. Mari kita lihat ilustrasikan bagaimana ELB berperan menangani komunikasi untuk setiap instance di antara bidang pemesanan dan produksi.
 
 Hint: `plot(head(cars, nrows))`
 
 <div class="notes">
-We'll get started with a really basic example app, just to get the juices flowing a little bit.
 
-Open up Exercise_01.R; it should be in your Files pane. You should see the beginnings of a Shiny app. The UI definition is complete, but the server function is blank. I want you to fill in that server function. Make the plot output show a simple plot of the first `nrows` rows of a built-in dataset of your choice. If you can't think of any, use `cars`.
-
-So basically, make the Shiny equivalent of this: `plot(head(cars, nrows))`
-
-I'll give you five minutes. That might be way too much time for some of you, but it'll give us a chance to shake out any technical issues. If you need help, talk to your neighbors, or flag down one of the TAs or myself. If you have extra time, get to know your neighbors a little more.
 </div>
 
 
@@ -291,11 +223,13 @@ output$plot <- renderPlot({
 ```
 
 <div class="notes">
-OK, we're back. Hopefully your code looks something like this.
+Kita telah menyinggung di awal bahwa ELB bersifat regional. Ini membuat setiap instance di bidang pemesanan dapat menggunakan satu URL saja dan ELB pun akan mengarahkannya ke instance produksi yang memiliki permintaan paling sedikit.
 
-How many of you ended up with this answer? Anyone come up with something different?
+Lantas, bagaimana jika ada instance baru di bidang produksi? Mudah. Instance tersebut cukup memberi tahu ELB bahwa dirinya siap menerima traffic. Instance di bidang pemesanan tak perlu tahu dan tak akan peduli ada berapa banyak instance yang berjalan di bidang produksi. Sekali lagi, inilah yang dinamakan decoupled architecture (arsitektur yang terpisah).
 
-What we don't want is something like this:
+Ada lebih banyak lagi hal yang dapat dilakukan oleh ELB yang nanti akan kita pelajari. Kesimpulannya, pilihlah layanan yang tepat untuk tugas yang tepat. Itulah salah satu alasan mengapa AWS menawarkan begitu banyak layanan yang beragam.
+
+Selanjutnya, kita akan mengupas beberapa layanan lain yang mungkin bekerja lebih baik untuk beberapa arsitektur.
 </div>
 
 
