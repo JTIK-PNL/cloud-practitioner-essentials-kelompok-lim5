@@ -1,6 +1,12 @@
 ---
 title: "Komputasi di Cloud"
-author: "Kelompok 5" 
+author: "Kelompok 5 <br /><br />
+         Muhammad Khalil <br />
+         Raffikul Muttakin <br />
+         M IRWANDA <br />
+         Muhammad Tasliman <br />
+         Muhammad Fadil <br />
+         Irfan Kalkausar"
 date: "29 Maret 2024"
 output:
   revealjs::revealjs_presentation:
@@ -13,19 +19,16 @@ output:
     incremental: false
 ---
 
-## Pengertian Komputasi di Cloud
-
----
-
-Functions can be executed for one or both of the following reasons:
-
-> 1. You want its return value.
-> 2. You want it to have **some other effect**.
-
-<div class="fragment">
-These are (a bit misleadingly) called _side effects_. Any effect that is not the return value is a side effect.
-</div>
-
+## Pengantar Komputasi di Cloud
+<div style="color:blue">Pengenalan ke Amazon Elastic Compute Cloud (Amazon EC2)</div>
+Amazon EC2 adalah layanan AWS yang dapat digunakan untuk mendapatkan akses ke server virtual dengan menggunakan layanan EC2, kita memiliki kapasitas komputasi fleksibel, hemat biaya, dan cepat dibandingkan dengan menjalankan server sendiri di data center on-premise.
+<div style="color:blue"> Cara Kerja Amazon EC2 </div>
+1.	Luncurkan<br>
+Pada luncurkan pengguna dapat memilih sebuah template dengan konfigurasi dasar untuk instance pengguna.<br>
+2.	Hubungkan<br>
+Pada hubungkan pengguna dapat terhubung ke instance dengan beberapa cara. <br>
+3.	Gunakan<br>
+Pada tahap ini pengguna dapat melakukan aktivitas seperti menginstal perangkat lunak, menambah penyimpanan, menyalin dan mengatur file, dll.
 
 
 ## Functions with side effects
