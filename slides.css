@@ -1,3 +1,7 @@
+*{
+  background-color: brown;
+}
+
 .reveal .sourceCode.r .kw, .sourceCode.r .er {
   color:inherit;
   font-weight: normal;
