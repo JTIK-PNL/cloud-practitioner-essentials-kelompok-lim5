@@ -1,7 +1,6 @@
 .reveal .sourceCode.r .kw, .sourceCode.r .er {
   color:inherit;
   font-weight: normal;
-  background-color: aliceblue;
 }
 .reveal .sourceCode.r .co {
   font-style: normal;
@@ -18,4 +17,8 @@
 .reveal pre code {
   font-size: 20px;
   line-height: 1.3;
+}
+
+.textt{
+  font-size: 20px;
 }
