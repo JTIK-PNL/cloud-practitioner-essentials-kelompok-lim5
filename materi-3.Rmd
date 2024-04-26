@@ -1,7 +1,7 @@
 ---
-title: "Principles of Reactivity"
-author: "Joe Cheng [&lt;joe@rstudio.com&gt;](mailto:joe@rstudio.com)"
-date: "\\#ShinyDevConf — January 30, 2016"
+title: "Komputasi di Cloud"
+author: "Kelompok 5" 
+date: "29 Maret 2024"
 output:
   revealjs::revealjs_presentation:
     theme: night
@@ -13,7 +13,7 @@ output:
     incremental: false
 ---
 
-## Warm up: Side effects
+## Pengertian Komputasi di Cloud
 
 ---
 
