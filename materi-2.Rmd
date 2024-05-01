@@ -31,40 +31,33 @@ Pada hubungkan pengguna dapat terhubung ke instance dengan beberapa cara. <br>
 Pada tahap ini pengguna dapat melakukan aktivitas seperti menginstal perangkat lunak, menambah penyimpanan, menyalin dan mengatur file, dll.
 
 
-## Slide 2
-
-```r
-write.csv(...)
-
-plot(cars)
-
-print(x)
-
-httr.POST(...)
-
-alarm()
-```
+## slide 2
 
 
 
-## Slide 3
 
-```r
-# Sets a variable in a parent environment
-value <<- 10
-
-# Loads into global env by default
-source("functions.R")
-
-# Modifies the global search list
-library(dplyr)
-
-# Only if foo is an env, ref class, or R6
-foo$bar <- TRUE
-```
-
-
-
+## Harga Amazon EC2
+<div style="color:blue">AWS memiliki beberapa pilihan penagihan terkait Amazon EC2.)</div>
+1.	On-Demand (Sesuai Permintaan)<br>
+    On-Demand adalah model pembayaran cloud di mana pengguna hanya membayar         untuk waktu penggunaan instance, baik per jam atau per detik. Model ini         cocok untuk penggunaan jangka pendek dan tidak memerlukan kontrak atau          pembayaran di muka.
+    
+2.	Savings Plans (Rencana Tabungan)<br>
+    Savings Plans memungkinkan pengguna mengurangi biaya komputasi dengan           berkomitmen terhadap jumlah dolar per jam dan penggunaan komputasi yang         konsisten selama 1 atau 3 tahun, memberikan penghematan hingga 72% pada         penggunaan komputasi AWS. AWS Cost Explorer membantu menganalisis penggunaan     Amazon EC2 dan memberikan rekomendasi untuk Savings Plans, membantu pengguna     memperkirakan potensi penghematan biaya bulanan.
+    
+## *
+3.	Reserved Instances (Instance Terpesan)<br>
+    Reserved Instances menawarkan diskon dengan komitmen penggunaan selama 1        atau 3 tahun, cocok untuk beban kerja stabil, dengan opsi pembayaran            fleksibel. Tersedia dalam Standard dan Convertible dengan diskon hingga 75%     dibandingkan On-Demand. Meskipun berakhir, pengguna dapat terus menggunakan     instance tanpa gangguan hingga membeli Reserved Instance baru.
+    
+4.	Spot Instances (Instance Spot)<br>
+    Spot Instances menggunakan kapasitas komputasi yang tidak terpakai dalam        Amazon EC2, memberikan penghematan biaya hingga 90% dari harga On-Demand.       Cocok untuk beban kerja fleksibel yang dapat menerima interupsi. Instance       akan diluncurkan saat kapasitas tersedia, dengan kemungkinan penarikan          kembali oleh AWS jika diperlukan.
+    
+## *
+5.	Dedicated Hosts (Host Khusus)<br>
+    Dedicated Hosts adalah server fisik Amazon EC2 yang didedikasikan sepenuhnya     untuk penggunaan Anda, ideal untuk kepatuhan dan pengelolaan lisensi            perangkat lunak.
+    
+<div style="color:blue"> note :
+    opsi harga Amazon EC2 yang sesuai: Spot Instances untuk beban kerja yang        fleksibel, Reserved Instance untuk penghematan dengan pembayaran lebih awal.     Namun, Dedicated Hosts adalah yang paling mahal.
+    
 ## Slide 4
 
 ```r
