@@ -1,0 +1,218 @@
+---
+title: "Komputasi di Cloud"
+author: "Kelompok 5 <br /><br />
+         Muhammad Khalil <br />
+         Raffikul Muttakin <br />
+         M IRWANDA <br />
+         Muhammad Tasliman <br />
+         Muhammad Fadil <br />
+         Irfan Kalkausar"
+date: "29 Maret 2024"
+output:
+  revealjs::revealjs_presentation:
+    theme: night
+    transition: none
+    self_contained: true
+    css: slides.css
+  beamer_presentation:
+    toc: false
+    incremental: false
+---
+
+## Pengantar Komputasi di Cloud
+<div style="color:blue">Pengenalan ke Amazon Elastic Compute Cloud (Amazon EC2)</div>
+Amazon EC2 adalah layanan AWS yang dapat digunakan untuk mendapatkan akses ke server virtual dengan menggunakan layanan EC2, kita memiliki kapasitas komputasi fleksibel, hemat biaya, dan cepat dibandingkan dengan menjalankan server sendiri di data center on-premise.
+<div style="color:blue"> Cara Kerja Amazon EC2 </div>
+1.	Luncurkan<br>
+Pada luncurkan pengguna dapat memilih sebuah template dengan konfigurasi dasar untuk instance pengguna.<br>
+2.	Hubungkan<br>
+Pada hubungkan pengguna dapat terhubung ke instance dengan beberapa cara. <br>
+3.	Gunakan<br>
+Pada tahap ini pengguna dapat melakukan aktivitas seperti menginstal perangkat lunak, menambah penyimpanan, menyalin dan mengatur file, dll.
+
+
+## Slide 2
+
+```r
+write.csv(...)
+
+plot(cars)
+
+print(x)
+
+httr.POST(...)
+
+alarm()
+```
+
+
+
+## Slide 3
+
+```r
+# Sets a variable in a parent environment
+value <<- 10
+
+# Loads into global env by default
+source("functions.R")
+
+# Modifies the global search list
+library(dplyr)
+
+# Only if foo is an env, ref class, or R6
+foo$bar <- TRUE
+```
+
+
+
+## Slide 4
+
+```r
+# Modifying *local* variables
+value <- 10
+
+# Creating most kinds of objects
+list(a = 1, b = 2)
+
+# Data frames are pass-by-value in R so this is OK
+dataset <- dataset %>% filter(count > 3)
+
+# Most calculations
+a + 1
+summary(pressure)
+lm(speed ~ dist, data = cars)
+predict(wfit, interval = "prediction")
+```
+
+
+
+## Slide 5
+
+
+<div style="color:green">Mengarahkan Traffic dengan Elastic Load Balancing)</div>
+Perkenalkan Elastic Load Balancing (ELB), yaitu layanan AWS yang secara otomatis mendistribusikan traffic aplikasi yang masuk ke berbagai sumber daya, seperti Amazon EC2 instance. <br>
+
+
+Sebagai permulaan, Elastic Load Balancing adalah regional construct (konstruksi regional). Ini berarti ELB berjalan di tingkat Region, bukan pada individu EC2 instance sehingga membuatnya highly available secara otomatis.
+
+ELB dapat diskalakan secara otomatis sehingga mampu menangani kepadatan traffic tanpa berdampak pada biaya per jamnya. Elastic Load Balancing dapat bekerja sama dengan Amazon EC2 Auto Scaling untuk membantu memastikan aplikasi yang berjalan di Amazon EC2 dapat memberikan kinerja dan ketersediaan tinggi.
+
+
+
+
+
+
+```r
+# Reading from disk
+readLines("data.csv")
+
+# Making HTTP GET requests
+httr.GET("https://api.example.com/data.json")
+
+# Reading global variables
+.Random.seed
+
+# Modifying the random seed... ehhhhhh...
+runif(10)
+```
+
+
+
+If executing your function/expression **leaves the state of the world a little different** than before it executed, **it has side effects**.
+
+But if "what happens in `func`, stays in `func`" (besides the return value), then it doesn't have side effects.
+
+## Mengarahkan Traffic dengan Elastic Load Balancing
+<div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
+
+Anggaplah di suatu pagi aplikasi Anda memiliki traffic yang normal. Lalu di siang hari, Anda mengadakan promo flash sale secara besar-besaran di aplikasi bisnis Anda, tak lama kemudian lalu lintas pun semakin meningkat.<br>
+
+Saat traffic membanjiri aplikasi Anda, EC2 instance akan melakukan scaling out. Saat instance siap, Amazon EC2 Auto Scaling akan memberi tahu Elastic Load Balancing bahwa ia siap untuk menangani traffic. <br>
+
+Katakanlah malam tiba dan promo flash sale pun berakhir. Ini membuat traffic pada aplikasi Anda semakin berkurang sehingga Amazon EC2 Auto Scaling harus melakukan scaling in. Artinya, ada beberapa EC2 instance yang akan diakhiri. <br>
+
+## Mengarahkan Traffic dengan Elastic Load Balancing
+<div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
+
+Tapi sebelum itu, ELB akan berhenti mengirimkan traffic kepada instance yang akan diakhiri tersebut dan menunggu hingga permintaan selesai ditangani. Setelah selesai, barulah Amazon EC2 Auto Scaling bisa mengakhiri instance tanpa mengganggu aktivitas pelanggan yang ada.<br>
+
+Sebelum menggunakan ELB, setiap instance di bidang pemesanan mengetahui seluruh instance produksi. Jadi, jika ada instance baru di bidang produksi, dia harus memberi tahu semua instance pemesanan bahwa sekarang dirinya dapat menerima traffic. Huh! Ini cukup rumit ya walau hanya ada 4 instance. <br>
+
+Sekarang bayangkan jika Anda memiliki ratusan instance di kedua bidang tersebut. Ampun! Tak sanggup lagi Anda bayangkan akan betapa kacaunya. Dengan kompleksitas seperti itu, mustahil rasanya membuat mereka tetap terhubung secara efisien. <br>
+
+## Mengarahkan Traffic dengan Elastic Load Balancing
+<div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
+
+Kita telah menyinggung di awal bahwa ELB bersifat regional. Ini membuat setiap instance di bidang pemesanan dapat menggunakan satu URL saja dan ELB pun akan mengarahkannya ke instance produksi yang memiliki permintaan paling sedikit.<br>
+
+Lantas, bagaimana jika ada instance baru di bidang produksi? Mudah. Instance tersebut cukup memberi tahu ELB bahwa dirinya siap menerima traffic. Instance di bidang pemesanan tak perlu tahu dan tak akan peduli ada berapa banyak instance yang berjalan di bidang produksi. Sekali lagi, inilah yang dinamakan decoupled architecture (arsitektur yang terpisah). <br>
+
+
+
+
+
+
+## Slide 6
+
+For each function, write Yes if it has side effects, and No if not.
+
+
+
+## Layanan Komputasi Tambahan
+<h3 style="font-size:25px">LAYANAN KOMPUTASI TAMBAHAN
+<p style="font-size:17px;text-align:justify">EC2 mengharuskan pengguna untuk mengatur dan mengelola instance dari waktu ke waktu. Saat pengguna menggunakan EC2, pengguna bertanggung jawab untuk:
+•	Melakukan patching (memperbaiki masalah dengan memperbarui program komputer) saat software package (paket perangkat lunak) yang baru tersedia.
+•	Menyiapkan scaling (penyesuaian kapasitas).
+•	Merancang aplikasi untuk dijalankan dengan cara yang highly available (sangat tersedia).
+Jika pengguna menggunakan data center on-premis, masih ada banyak hal lain yang harus pengguna kelola</p>
+<h3 style="font-size:25px">KOMPUTASI SERVERLESS</h3>
+<p style="font-size:17px;text-align:justify">Serverless berarti pengguna tidak dapat melihat dan mengakses infrastruktur dasar yang menjalankan aplikasi pengguna. Smeua pengelolaan lingkungan yang mendasari penyediaan, scaling, high availability ( ketersediaan tinggi), dan pemeliharaan sudah ditangani sehingga pengguna bisa fokus pada aplikasi yang akan dijalankan.</p>
+
+<h3 style="font-size:25px">AWS LAMBDA
+<p style="font-size:20px;text-align:justify">AWS Lambda adalah layanan yang memungkinkan pengguna untuk menjalankan kode tanpa harus membuat atau mengelola server.</p>
+<h3 style="font-size:25px">CARA KERJA AWS LAMBDA
+<p style="font-size:17px;text-align:justify">
+  <ol style="font-size:20px; text-align:justify">
+  <li>Unggah kode pengguna ke AWS Lambda.</li>
+  <li>Konfigurasikan kode pengguna agar terpicu (trigger) dari sumber kejadian, seperti layanan AWS, aplikasi seluler, atau HTTP endpoint (titik akhir HTTP).</li>
+  <li>Kode berjalan hanya ketika mendapat trigger.</li>
+  <li>Cukup bayar sesuai waktu komputasi yang pengguna gunakan.</li>
+  </ol>
+</p>
+
+## LAYANAN KOMPUTASI TAMBAHAN
+<h3 style="font-size:20px;line-height:0px">CONTAINER</h3>
+<p style="font-size:17px;text-align:justify">Container adalah pilihan lain dari serverless jika pengguna memerlukan akses ke infrastrukturnya dengaan efisiensi dan portabilitas, Contoh contairer seperti Amazon Elastic Container Service (Amazon ECS) dan Amazon Elastic Kubernetes Service (Amazon EKS). Keduanya merupakan layanan container orchestration alias okrkestrasi kontainer. Container dalam hal ini adalah Docker container.
+Docker adalah platform perangkat lunak populer yang menggunakan virtualisasi sistem operasi untuk memudahkan pengguna dalam membangun, menguji, dan men-deploy(menerapkan) aplikasi dengan cepat. Sementara container menyediakan cara untuk mengemas kode, konfigurasi, dan dependensi aplikasi pengguna ke dalam satu objek.</p>
+
+
+<h3 style="font-size:20px;line-height:0px">STUDI KASUS: CONTAINER</h3>
+<p style="font-size: 17px;text-align:justify">Misal developer aplikasi di suatu perusahaan memiliki infrastruktur komputer yang berbeda dengan staf operasi IT. Developer tersebut ingin memastikan bahwa lingkungan aplikasi tetap konsisten terlepas dari deployment-nya (penerapannya) sehingga dia pun menggunakan pendekatan container.</p>
+<h3 style="font-size:20px;line-height:0px">AMAZON ELASTIC CONTAINER SERVICE (AMAZON ECS)</h3>
+<p style="font-size: 17px;text-align:justify">Amazon Elastic Container Service (Amazon ECS) adalah sistem manajemen container berkinerja tinggi yang dapat memungkinkan pengguna untuk menjalankan dan melakukan scaling terhadap containerized application ( aplikasi dalam kontainer) di AWS</p>
+<h3 style="font-size:20px;line-height:0px">AMAZON ELASTIC KUBERNETES SEVICE (AMAZON EKS)</h3>
+<p style="font-size: 17px;text-align:justify">Amazon Elastic Kubernetes Service (Amazon EKS) adalah layanan terkelola sepenuhnya yang dapat Pengguna gunakan untuk menjalankan Kubernetes di AWS.</p>
+<h3 style="font-size:20px;line-height:0px">AWS FARGAT</h3>
+<p style="font-size: 17px; text-align:justify">AWS Fargate adalah platform komputasi serverless untuk Amazon ECS dan Amazon EKS. Saat menggunakan layanan ini, Pengguna tak perlu menyediakan atau mengelola server karena AWS Fargate yang mengelolanya untuk Pengguna.</p>
+
+
+
+## Slide 8
+
+```r
+function(values) {
+  globalenv()$values <- values
+  values
+}
+```
+
+
+
+## Slide 9
+
+```r
+function() {
+  options(digits.secs = 6)
+  as.character(Sys.time())
+}
+```

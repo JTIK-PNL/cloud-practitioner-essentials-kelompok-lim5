@@ -1,7 +1,13 @@
 ---
+<<<<<<< HEAD:slides.Rmd
 title: "cloud practitioner essentials"
 author: "Kelompok lima"
 date: " 16 April 2024"
+=======
+title: "Komputasi di Cloud"
+author: "Kelompok 5" 
+date: "29 Maret 2024"
+>>>>>>> ec87e182224dbab255ce40816bf7e71b0166162e:materi-3.Rmd
 output:
   revealjs::revealjs_presentation:
     theme: night
@@ -13,7 +19,7 @@ output:
     incremental: false
 ---
 
-## Warm up: Side effects
+## Pengertian Komputasi di Cloud
 
 ---
 
