@@ -31,7 +31,23 @@ Pada hubungkan pengguna dapat terhubung ke instance dengan beberapa cara. <br>
 Pada tahap ini pengguna dapat melakukan aktivitas seperti menginstal perangkat lunak, menambah penyimpanan, menyalin dan mengatur file, dll.
 
 
-## slide 2
+## Tipe instance amazon ec2
+<div style="color:blue">Tipe Instance Amazon EC2 </div>
+Setiap tipe instance dikelompokkan dalam satu instance family (keluarga instance) dan dioptimalkan untuk jenis tugas tertentu.
+Instance family di Amazon EC2 memiliki fungsi yang berbeda-beda. Di antaranya ada general purpose, compute optimized, memory optimized, accelerated computing (komputasi terakselerasi), dan storage optimized. Berikut uraiannya:
+<div style="color:blue"> Fungsi Instance family di Amazon EC2  </div>
+<li> General purpose instances (Instance tujuan umum) </li>
+<p> Tipe ini memberikan keseimbangan yang baik dari segi sumber daya komputasi, memori, dan jaringan. </p>
+<li> Compute optimized instances (Instance teroptimasi untuk komputasi) </li>
+<p> Tipe yang satu ini ideal untuk tugas komputasi yang intensif dan berpusat pada prosesor dengan performa tinggi, seperti server game, HPC (high-performance computing/komputasi dengan performa tinggi), atau bahkan pemodelan ilmiah.</P>
+<li> Memory optimized instances (Instance teroptimasi untuk memori) </li>
+<p> Opsi ini didesain untuk memberikan performa tinggi untuk beban kerja yang memproses kumpulan data besar di dalam memori, seperti relasional dan nonrelasional database atau HPC (high-performance computing). </P>
+<li> Accelerated computing instances (Instance terakselerasi untuk komputasi) </li>
+<p> Opsi ini didesain untuk memberikan performa tinggi untuk beban kerja yang memproses kumpulan data besar di dalam memori, seperti relasional dan nonrelasional database atau HPC (high-performance computing). </P>
+<li> Storage optimized instance (Instance teroptimasi untuk penyimpanan) </li>
+<p> Opsi ini didesain untuk beban kerja yang membutuhkan akses read (baca) dan write (tulis) yang tinggi dan berurutan untuk kumpulan data yang besar di penyimpanan lokal. </P>
+
+Jika dianalogikan ke dalam skenario kedai kopi, kasir itu akan menjadi memory optimized instance, barista menjadi compute optimized instance, dan si pembuat seni pada latte adalah accelerated computing instance. Itulah tipe instance pada Amazon EC2.
 
 
 
@@ -146,6 +162,16 @@ Lantas, bagaimana jika ada instance baru di bidang produksi? Mudah. Instance ter
 
 
 ## Slide 6
+Message Queue adalah nama umum yang digunakan untuk suatu komponen yang bertugas untuk menerima data, menyimpannya dalam suatu rentang waktu, dan mengirimkannya suatu / beberapa tempat.
+
+Kalau di dunia nyata, mirip tujuannya dengan adanya jalur antrian.
+
+Misalnya kita punya aplikasi A yang mengirimkan pesan langsung ke aplikasi B. Jika aplikasi B mengalami kegagalan dan tak dapat menerima pesan tersebut, maka aplikasi A pun akan terkena eror juga. Desain aplikasi seperti ini dapat dianggap sebagai pendekatan monolithic application alias aplikasi monolitik, yaitu saat berbagai komponen digabungkan menjadi satu kesatuan.
+
+## slide 6 
+Sama seperti di kedai kopi yang menyertakan buffer di antara kasir dan barista, kita juga dapat menggunakan komponen yang serupa, yaitu message queue (antrean pesan). Pesan dikirim ke antrean oleh aplikasi A dan diproses oleh aplikasi B. Jika aplikasi B gagal, aplikasi A tidak mengalami gangguan apa pun. Pesan yang dikirim masih dapat dikirim ke antrean dan akan tetap berada di sana sampai akhirnya diproses.
+
+Desain aplikasi semacam ini merupakan pendekatan dari microservice (layanan mikro), yaitu saat komponen dibuat menjadi loosely coupled sehingga dapat dikembangkan, di-deploy (diterapkan), dan dikelola secara independen. Setiap komponen mempunyai tugasnya masing-masing dan juga dapat berkomunikasi satu sama lain.
 
 For each function, write Yes if it has side effects, and No if not.
 
