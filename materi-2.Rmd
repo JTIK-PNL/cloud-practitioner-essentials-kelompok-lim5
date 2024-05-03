@@ -31,40 +31,33 @@ Pada hubungkan pengguna dapat terhubung ke instance dengan beberapa cara. <br>
 Pada tahap ini pengguna dapat melakukan aktivitas seperti menginstal perangkat lunak, menambah penyimpanan, menyalin dan mengatur file, dll.
 
 
-## Slide 2
-
-```r
-write.csv(...)
-
-plot(cars)
-
-print(x)
-
-httr.POST(...)
-
-alarm()
-```
+## slide 2
 
 
 
-## Slide 3
 
-```r
-# Sets a variable in a parent environment
-value <<- 10
-
-# Loads into global env by default
-source("functions.R")
-
-# Modifies the global search list
-library(dplyr)
-
-# Only if foo is an env, ref class, or R6
-foo$bar <- TRUE
-```
-
-
-
+## Harga Amazon EC2
+<div style="color:blue">AWS memiliki beberapa pilihan penagihan terkait Amazon EC2.)</div>
+1.	On-Demand (Sesuai Permintaan)<br>
+    On-Demand adalah model pembayaran cloud di mana pengguna hanya membayar         untuk waktu penggunaan instance, baik per jam atau per detik. Model ini         cocok untuk penggunaan jangka pendek dan tidak memerlukan kontrak atau          pembayaran di muka.
+    
+2.	Savings Plans (Rencana Tabungan)<br>
+    Savings Plans memungkinkan pengguna mengurangi biaya komputasi dengan           berkomitmen terhadap jumlah dolar per jam dan penggunaan komputasi yang         konsisten selama 1 atau 3 tahun, memberikan penghematan hingga 72% pada         penggunaan komputasi AWS. AWS Cost Explorer membantu menganalisis penggunaan     Amazon EC2 dan memberikan rekomendasi untuk Savings Plans, membantu pengguna     memperkirakan potensi penghematan biaya bulanan.
+    
+## *
+3.	Reserved Instances (Instance Terpesan)<br>
+    Reserved Instances menawarkan diskon dengan komitmen penggunaan selama 1        atau 3 tahun, cocok untuk beban kerja stabil, dengan opsi pembayaran            fleksibel. Tersedia dalam Standard dan Convertible dengan diskon hingga 75%     dibandingkan On-Demand. Meskipun berakhir, pengguna dapat terus menggunakan     instance tanpa gangguan hingga membeli Reserved Instance baru.
+    
+4.	Spot Instances (Instance Spot)<br>
+    Spot Instances menggunakan kapasitas komputasi yang tidak terpakai dalam        Amazon EC2, memberikan penghematan biaya hingga 90% dari harga On-Demand.       Cocok untuk beban kerja fleksibel yang dapat menerima interupsi. Instance       akan diluncurkan saat kapasitas tersedia, dengan kemungkinan penarikan          kembali oleh AWS jika diperlukan.
+    
+## *
+5.	Dedicated Hosts (Host Khusus)<br>
+    Dedicated Hosts adalah server fisik Amazon EC2 yang didedikasikan sepenuhnya     untuk penggunaan Anda, ideal untuk kepatuhan dan pengelolaan lisensi            perangkat lunak.
+    
+<div style="color:blue"> note :
+    opsi harga Amazon EC2 yang sesuai: Spot Instances untuk beban kerja yang        fleksibel, Reserved Instance untuk penghematan dengan pembayaran lebih awal.     Namun, Dedicated Hosts adalah yang paling mahal.
+    
 ## Slide 4
 
 ```r
@@ -88,6 +81,20 @@ predict(wfit, interval = "prediction")
 
 ## Slide 5
 
+
+<div style="color:green">Mengarahkan Traffic dengan Elastic Load Balancing)</div>
+Perkenalkan Elastic Load Balancing (ELB), yaitu layanan AWS yang secara otomatis mendistribusikan traffic aplikasi yang masuk ke berbagai sumber daya, seperti Amazon EC2 instance. <br>
+
+
+Sebagai permulaan, Elastic Load Balancing adalah regional construct (konstruksi regional). Ini berarti ELB berjalan di tingkat Region, bukan pada individu EC2 instance sehingga membuatnya highly available secara otomatis.
+
+ELB dapat diskalakan secara otomatis sehingga mampu menangani kepadatan traffic tanpa berdampak pada biaya per jamnya. Elastic Load Balancing dapat bekerja sama dengan Amazon EC2 Auto Scaling untuk membantu memastikan aplikasi yang berjalan di Amazon EC2 dapat memberikan kinerja dan ketersediaan tinggi.
+
+
+
+
+
+
 ```r
 # Reading from disk
 readLines("data.csv")
@@ -107,6 +114,34 @@ runif(10)
 If executing your function/expression **leaves the state of the world a little different** than before it executed, **it has side effects**.
 
 But if "what happens in `func`, stays in `func`" (besides the return value), then it doesn't have side effects.
+
+## Mengarahkan Traffic dengan Elastic Load Balancing
+<div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
+
+Anggaplah di suatu pagi aplikasi Anda memiliki traffic yang normal. Lalu di siang hari, Anda mengadakan promo flash sale secara besar-besaran di aplikasi bisnis Anda, tak lama kemudian lalu lintas pun semakin meningkat.<br>
+
+Saat traffic membanjiri aplikasi Anda, EC2 instance akan melakukan scaling out. Saat instance siap, Amazon EC2 Auto Scaling akan memberi tahu Elastic Load Balancing bahwa ia siap untuk menangani traffic. <br>
+
+Katakanlah malam tiba dan promo flash sale pun berakhir. Ini membuat traffic pada aplikasi Anda semakin berkurang sehingga Amazon EC2 Auto Scaling harus melakukan scaling in. Artinya, ada beberapa EC2 instance yang akan diakhiri. <br>
+
+## Mengarahkan Traffic dengan Elastic Load Balancing
+<div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
+
+Tapi sebelum itu, ELB akan berhenti mengirimkan traffic kepada instance yang akan diakhiri tersebut dan menunggu hingga permintaan selesai ditangani. Setelah selesai, barulah Amazon EC2 Auto Scaling bisa mengakhiri instance tanpa mengganggu aktivitas pelanggan yang ada.<br>
+
+Sebelum menggunakan ELB, setiap instance di bidang pemesanan mengetahui seluruh instance produksi. Jadi, jika ada instance baru di bidang produksi, dia harus memberi tahu semua instance pemesanan bahwa sekarang dirinya dapat menerima traffic. Huh! Ini cukup rumit ya walau hanya ada 4 instance. <br>
+
+Sekarang bayangkan jika Anda memiliki ratusan instance di kedua bidang tersebut. Ampun! Tak sanggup lagi Anda bayangkan akan betapa kacaunya. Dengan kompleksitas seperti itu, mustahil rasanya membuat mereka tetap terhubung secara efisien. <br>
+
+## Mengarahkan Traffic dengan Elastic Load Balancing
+<div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
+
+Kita telah menyinggung di awal bahwa ELB bersifat regional. Ini membuat setiap instance di bidang pemesanan dapat menggunakan satu URL saja dan ELB pun akan mengarahkannya ke instance produksi yang memiliki permintaan paling sedikit.<br>
+
+Lantas, bagaimana jika ada instance baru di bidang produksi? Mudah. Instance tersebut cukup memberi tahu ELB bahwa dirinya siap menerima traffic. Instance di bidang pemesanan tak perlu tahu dan tak akan peduli ada berapa banyak instance yang berjalan di bidang produksi. Sekali lagi, inilah yang dinamakan decoupled architecture (arsitektur yang terpisah). <br>
+
+
+
 
 
 
