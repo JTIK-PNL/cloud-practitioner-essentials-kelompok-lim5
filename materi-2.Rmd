@@ -146,6 +146,16 @@ Lantas, bagaimana jika ada instance baru di bidang produksi? Mudah. Instance ter
 
 
 ## Slide 6
+Message Queue adalah nama umum yang digunakan untuk suatu komponen yang bertugas untuk menerima data, menyimpannya dalam suatu rentang waktu, dan mengirimkannya suatu / beberapa tempat.
+
+Kalau di dunia nyata, mirip tujuannya dengan adanya jalur antrian.
+
+Misalnya kita punya aplikasi A yang mengirimkan pesan langsung ke aplikasi B. Jika aplikasi B mengalami kegagalan dan tak dapat menerima pesan tersebut, maka aplikasi A pun akan terkena eror juga. Desain aplikasi seperti ini dapat dianggap sebagai pendekatan monolithic application alias aplikasi monolitik, yaitu saat berbagai komponen digabungkan menjadi satu kesatuan.
+
+## slide 6 
+Sama seperti di kedai kopi yang menyertakan buffer di antara kasir dan barista, kita juga dapat menggunakan komponen yang serupa, yaitu message queue (antrean pesan). Pesan dikirim ke antrean oleh aplikasi A dan diproses oleh aplikasi B. Jika aplikasi B gagal, aplikasi A tidak mengalami gangguan apa pun. Pesan yang dikirim masih dapat dikirim ke antrean dan akan tetap berada di sana sampai akhirnya diproses.
+
+Desain aplikasi semacam ini merupakan pendekatan dari microservice (layanan mikro), yaitu saat komponen dibuat menjadi loosely coupled sehingga dapat dikembangkan, di-deploy (diterapkan), dan dikelola secara independen. Setiap komponen mempunyai tugasnya masing-masing dan juga dapat berkomunikasi satu sama lain.
 
 For each function, write Yes if it has side effects, and No if not.
 
