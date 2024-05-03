@@ -2,7 +2,7 @@
 title: "Komputasi di Cloud"
 author: "Kelompok 5 <br /><br />
          Muhammad Khalil <br />
-         Raffikul Muttakin <br />
+         Rafikul Muttakin <br />
          M IRWANDA <br />
          Muhammad Tasliman <br />
          Muhammad Fadil <br />
@@ -36,19 +36,16 @@ Pada tahap ini pengguna dapat melakukan aktivitas seperti menginstal perangkat l
 Setiap tipe instance dikelompokkan dalam satu instance family (keluarga instance) dan dioptimalkan untuk jenis tugas tertentu.
 Instance family di Amazon EC2 memiliki fungsi yang berbeda-beda. Di antaranya ada general purpose, compute optimized, memory optimized, accelerated computing (komputasi terakselerasi), dan storage optimized. Berikut uraiannya:
 <div style="color:blue"> Fungsi Instance family di Amazon EC2  </div>
-<li> General purpose instances (Instance tujuan umum) </li>
-<p> Tipe ini memberikan keseimbangan yang baik dari segi sumber daya komputasi, memori, dan jaringan. </p>
 <li> Compute optimized instances (Instance teroptimasi untuk komputasi) </li>
-<p> Tipe yang satu ini ideal untuk tugas komputasi yang intensif dan berpusat pada prosesor dengan performa tinggi, seperti server game, HPC (high-performance computing/komputasi dengan performa tinggi), atau bahkan pemodelan ilmiah.</P>
+Tipe yang satu ini ideal untuk tugas komputasi yang intensif dan berpusat pada prosesor dengan performa tinggi, seperti server game, HPC (high-performance computing/komputasi dengan performa tinggi), atau bahkan pemodelan ilmiah.
+
+## next 
 <li> Memory optimized instances (Instance teroptimasi untuk memori) </li>
-<p> Opsi ini didesain untuk memberikan performa tinggi untuk beban kerja yang memproses kumpulan data besar di dalam memori, seperti relasional dan nonrelasional database atau HPC (high-performance computing). </P>
+Opsi ini didesain untuk memberikan performa tinggi untuk beban kerja yang memproses kumpulan data besar di dalam memori, seperti relasional dan nonrelasional database atau HPC (high-performance computing). 
 <li> Accelerated computing instances (Instance terakselerasi untuk komputasi) </li>
-<p> Opsi ini didesain untuk memberikan performa tinggi untuk beban kerja yang memproses kumpulan data besar di dalam memori, seperti relasional dan nonrelasional database atau HPC (high-performance computing). </P>
-<li> Storage optimized instance (Instance teroptimasi untuk penyimpanan) </li>
-<p> Opsi ini didesain untuk beban kerja yang membutuhkan akses read (baca) dan write (tulis) yang tinggi dan berurutan untuk kumpulan data yang besar di penyimpanan lokal. </P>
+Opsi ini didesain untuk memberikan performa tinggi untuk beban kerja yang memproses kumpulan data besar di dalam memori, seperti relasional dan nonrelasional database atau HPC (high-performance computing).
 
 Jika dianalogikan ke dalam skenario kedai kopi, kasir itu akan menjadi memory optimized instance, barista menjadi compute optimized instance, dan si pembuat seni pada latte adalah accelerated computing instance. Itulah tipe instance pada Amazon EC2.
-
 
 
 
@@ -95,10 +92,8 @@ predict(wfit, interval = "prediction")
 
 
 
-## Slide 5
+## Mengarahkan Traffic dengan Elastic Load Balancing)
 
-
-<div style="color:green">Mengarahkan Traffic dengan Elastic Load Balancing)</div>
 Perkenalkan Elastic Load Balancing (ELB), yaitu layanan AWS yang secara otomatis mendistribusikan traffic aplikasi yang masuk ke berbagai sumber daya, seperti Amazon EC2 instance. <br>
 
 
@@ -107,29 +102,6 @@ Sebagai permulaan, Elastic Load Balancing adalah regional construct (konstruksi 
 ELB dapat diskalakan secara otomatis sehingga mampu menangani kepadatan traffic tanpa berdampak pada biaya per jamnya. Elastic Load Balancing dapat bekerja sama dengan Amazon EC2 Auto Scaling untuk membantu memastikan aplikasi yang berjalan di Amazon EC2 dapat memberikan kinerja dan ketersediaan tinggi.
 
 
-
-
-
-
-```r
-# Reading from disk
-readLines("data.csv")
-
-# Making HTTP GET requests
-httr.GET("https://api.example.com/data.json")
-
-# Reading global variables
-.Random.seed
-
-# Modifying the random seed... ehhhhhh...
-runif(10)
-```
-
-
-
-If executing your function/expression **leaves the state of the world a little different** than before it executed, **it has side effects**.
-
-But if "what happens in `func`, stays in `func`" (besides the return value), then it doesn't have side effects.
 
 ## Mengarahkan Traffic dengan Elastic Load Balancing
 <div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
@@ -141,8 +113,6 @@ Saat traffic membanjiri aplikasi Anda, EC2 instance akan melakukan scaling out. 
 Katakanlah malam tiba dan promo flash sale pun berakhir. Ini membuat traffic pada aplikasi Anda semakin berkurang sehingga Amazon EC2 Auto Scaling harus melakukan scaling in. Artinya, ada beberapa EC2 instance yang akan diakhiri. <br>
 
 ## Mengarahkan Traffic dengan Elastic Load Balancing
-<div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
-
 Tapi sebelum itu, ELB akan berhenti mengirimkan traffic kepada instance yang akan diakhiri tersebut dan menunggu hingga permintaan selesai ditangani. Setelah selesai, barulah Amazon EC2 Auto Scaling bisa mengakhiri instance tanpa mengganggu aktivitas pelanggan yang ada.<br>
 
 Sebelum menggunakan ELB, setiap instance di bidang pemesanan mengetahui seluruh instance produksi. Jadi, jika ada instance baru di bidang produksi, dia harus memberi tahu semua instance pemesanan bahwa sekarang dirinya dapat menerima traffic. Huh! Ini cukup rumit ya walau hanya ada 4 instance. <br>
@@ -150,8 +120,6 @@ Sebelum menggunakan ELB, setiap instance di bidang pemesanan mengetahui seluruh 
 Sekarang bayangkan jika Anda memiliki ratusan instance di kedua bidang tersebut. Ampun! Tak sanggup lagi Anda bayangkan akan betapa kacaunya. Dengan kompleksitas seperti itu, mustahil rasanya membuat mereka tetap terhubung secara efisien. <br>
 
 ## Mengarahkan Traffic dengan Elastic Load Balancing
-<div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
-
 Kita telah menyinggung di awal bahwa ELB bersifat regional. Ini membuat setiap instance di bidang pemesanan dapat menggunakan satu URL saja dan ELB pun akan mengarahkannya ke instance produksi yang memiliki permintaan paling sedikit.<br>
 
 Lantas, bagaimana jika ada instance baru di bidang produksi? Mudah. Instance tersebut cukup memberi tahu ELB bahwa dirinya siap menerima traffic. Instance di bidang pemesanan tak perlu tahu dan tak akan peduli ada berapa banyak instance yang berjalan di bidang produksi. Sekali lagi, inilah yang dinamakan decoupled architecture (arsitektur yang terpisah). <br>
@@ -161,14 +129,14 @@ Lantas, bagaimana jika ada instance baru di bidang produksi? Mudah. Instance ter
 
 
 
-## Slide 6
+## Message and Queue 
 Message Queue adalah nama umum yang digunakan untuk suatu komponen yang bertugas untuk menerima data, menyimpannya dalam suatu rentang waktu, dan mengirimkannya suatu / beberapa tempat.
 
 Kalau di dunia nyata, mirip tujuannya dengan adanya jalur antrian.
 
 Misalnya kita punya aplikasi A yang mengirimkan pesan langsung ke aplikasi B. Jika aplikasi B mengalami kegagalan dan tak dapat menerima pesan tersebut, maka aplikasi A pun akan terkena eror juga. Desain aplikasi seperti ini dapat dianggap sebagai pendekatan monolithic application alias aplikasi monolitik, yaitu saat berbagai komponen digabungkan menjadi satu kesatuan.
 
-## slide 6 
+## next 
 Sama seperti di kedai kopi yang menyertakan buffer di antara kasir dan barista, kita juga dapat menggunakan komponen yang serupa, yaitu message queue (antrean pesan). Pesan dikirim ke antrean oleh aplikasi A dan diproses oleh aplikasi B. Jika aplikasi B gagal, aplikasi A tidak mengalami gangguan apa pun. Pesan yang dikirim masih dapat dikirim ke antrean dan akan tetap berada di sana sampai akhirnya diproses.
 
 Desain aplikasi semacam ini merupakan pendekatan dari microservice (layanan mikro), yaitu saat komponen dibuat menjadi loosely coupled sehingga dapat dikembangkan, di-deploy (diterapkan), dan dikelola secara independen. Setiap komponen mempunyai tugasnya masing-masing dan juga dapat berkomunikasi satu sama lain.
