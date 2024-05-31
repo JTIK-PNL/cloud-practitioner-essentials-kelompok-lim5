@@ -1,13 +1,13 @@
 ---
-<<<<<<< HEAD:slides.Rmd
-title: "cloud practitioner essentials"
-author: "Kelompok lima"
-date: " 16 April 2024"
-=======
 title: "Komputasi di Cloud"
-author: "Kelompok 5" 
+author: "Kelompok 5 <br /><br />
+         Muhammad Khalil <br />
+         Rafikul Muttakin <br />
+         M IRWANDA <br />
+         Muhammad Tasliman <br />
+         Muhammad Fadil <br />
+         Irfan Kalkausar"
 date: "29 Maret 2024"
->>>>>>> ec87e182224dbab255ce40816bf7e71b0166162e:materi-3.Rmd
 output:
   revealjs::revealjs_presentation:
     theme: night
@@ -19,55 +19,59 @@ output:
     incremental: false
 ---
 
-## Pengertian Komputasi di Cloud
-
----
-
-Mengarahkan Traffic dengan Elastic Load Balancing:
-
-> 1. Elastic Load Balancing  **some other effect**.
-
-<div class="fragment">
-Di modul sebelumnya kita telah berhasil memecahkan masalah scaling (penyesuaian kapasitas) dengan Amazon EC2 Auto Scaling. Tapi kita masih punya satu masalah lainnya terkait traffic (lalu lintas).
-</div>
-
+## Pengantar Komputasi di Cloud
+<div style="color:blue">Pengenalan ke Amazon Elastic Compute Cloud (Amazon EC2)</div>
+Amazon EC2 adalah layanan AWS yang dapat digunakan untuk mendapatkan akses ke server virtual dengan menggunakan layanan EC2, kita memiliki kapasitas komputasi fleksibel, hemat biaya, dan cepat dibandingkan dengan menjalankan server sendiri di data center on-premise.
+<div style="color:blue"> Cara Kerja Amazon EC2 </div>
+1.	Luncurkan<br>
+Pada luncurkan pengguna dapat memilih sebuah template dengan konfigurasi dasar untuk instance pengguna.<br>
+2.	Hubungkan<br>
+Pada hubungkan pengguna dapat terhubung ke instance dengan beberapa cara. <br>
+3.	Gunakan<br>
+Pada tahap ini pengguna dapat melakukan aktivitas seperti menginstal perangkat lunak, menambah penyimpanan, menyalin dan mengatur file, dll.
 
 
-## Functions with side effects
+## Tipe instance amazon ec2
+<div style="color:blue">Tipe Instance Amazon EC2 </div>
+Setiap tipe instance dikelompokkan dalam satu instance family (keluarga instance) dan dioptimalkan untuk jenis tugas tertentu.
+Instance family di Amazon EC2 memiliki fungsi yang berbeda-beda. Di antaranya ada general purpose, compute optimized, memory optimized, accelerated computing (komputasi terakselerasi), dan storage optimized. Berikut uraiannya:
+<div style="color:blue"> Fungsi Instance family di Amazon EC2  </div>
+<li> Compute optimized instances (Instance teroptimasi untuk komputasi) </li>
+Tipe yang satu ini ideal untuk tugas komputasi yang intensif dan berpusat pada prosesor dengan performa tinggi, seperti server game, HPC (high-performance computing/komputasi dengan performa tinggi), atau bahkan pemodelan ilmiah.
 
-```r
-write.csv(...)
+## next 
+<li> Memory optimized instances (Instance teroptimasi untuk memori) </li>
+Opsi ini didesain untuk memberikan performa tinggi untuk beban kerja yang memproses kumpulan data besar di dalam memori, seperti relasional dan nonrelasional database atau HPC (high-performance computing). 
+<li> Accelerated computing instances (Instance terakselerasi untuk komputasi) </li>
+Opsi ini didesain untuk memberikan performa tinggi untuk beban kerja yang memproses kumpulan data besar di dalam memori, seperti relasional dan nonrelasional database atau HPC (high-performance computing).
 
-plot(cars)
-
-print(x)
-
-httr.POST(...)
-
-alarm()
-```
-
-
-
-## More side effects
-
-```r
-# Sets a variable in a parent environment
-value <<- 10
-
-# Loads into global env by default
-source("functions.R")
-
-# Modifies the global search list
-library(dplyr)
-
-# Only if foo is an env, ref class, or R6
-foo$bar <- TRUE
-```
+Jika dianalogikan ke dalam skenario kedai kopi, kasir itu akan menjadi memory optimized instance, barista menjadi compute optimized instance, dan si pembuat seni pada latte adalah accelerated computing instance. Itulah tipe instance pada Amazon EC2.
 
 
 
-## NOT side effects (when inside a function)
+## Harga Amazon EC2
+<div style="color:blue">AWS memiliki beberapa pilihan penagihan terkait Amazon EC2.)</div>
+1.	On-Demand (Sesuai Permintaan)<br>
+    On-Demand adalah model pembayaran cloud di mana pengguna hanya membayar         untuk waktu penggunaan instance, baik per jam atau per detik. Model ini         cocok untuk penggunaan jangka pendek dan tidak memerlukan kontrak atau          pembayaran di muka.
+    
+2.	Savings Plans (Rencana Tabungan)<br>
+    Savings Plans memungkinkan pengguna mengurangi biaya komputasi dengan           berkomitmen terhadap jumlah dolar per jam dan penggunaan komputasi yang         konsisten selama 1 atau 3 tahun, memberikan penghematan hingga 72% pada         penggunaan komputasi AWS. AWS Cost Explorer membantu menganalisis penggunaan     Amazon EC2 dan memberikan rekomendasi untuk Savings Plans, membantu pengguna     memperkirakan potensi penghematan biaya bulanan.
+    
+## *
+3.	Reserved Instances (Instance Terpesan)<br>
+    Reserved Instances menawarkan diskon dengan komitmen penggunaan selama 1        atau 3 tahun, cocok untuk beban kerja stabil, dengan opsi pembayaran            fleksibel. Tersedia dalam Standard dan Convertible dengan diskon hingga 75%     dibandingkan On-Demand. Meskipun berakhir, pengguna dapat terus menggunakan     instance tanpa gangguan hingga membeli Reserved Instance baru.
+    
+4.	Spot Instances (Instance Spot)<br>
+    Spot Instances menggunakan kapasitas komputasi yang tidak terpakai dalam        Amazon EC2, memberikan penghematan biaya hingga 90% dari harga On-Demand.       Cocok untuk beban kerja fleksibel yang dapat menerima interupsi. Instance       akan diluncurkan saat kapasitas tersedia, dengan kemungkinan penarikan          kembali oleh AWS jika diperlukan.
+    
+## *
+5.	Dedicated Hosts (Host Khusus)<br>
+    Dedicated Hosts adalah server fisik Amazon EC2 yang didedikasikan sepenuhnya     untuk penggunaan Anda, ideal untuk kepatuhan dan pengelolaan lisensi            perangkat lunak.
+    
+<div style="color:blue"> note :
+    opsi harga Amazon EC2 yang sesuai: Spot Instances untuk beban kerja yang        fleksibel, Reserved Instance untuk penghematan dengan pembayaran lebih awal.     Namun, Dedicated Hosts adalah yang paling mahal.
+    
+## Slide 4
 
 ```r
 # Modifying *local* variables
@@ -88,691 +92,114 @@ predict(wfit, interval = "prediction")
 
 
 
-## Ehhh... Not side effects
+## Mengarahkan Traffic dengan Elastic Load Balancing)
 
-```r
-# Reading from disk
-readLines("data.csv")
+Perkenalkan Elastic Load Balancing (ELB), yaitu layanan AWS yang secara otomatis mendistribusikan traffic aplikasi yang masuk ke berbagai sumber daya, seperti Amazon EC2 instance. <br>
 
-# Making HTTP GET requests
-httr.GET("https://api.example.com/data.json")
-
-# Reading global variables
-.Random.seed
-
-# Modifying the random seed... ehhhhhh...
-runif(10)
-```
-
-
-
-Mari lihat situasinya di skenario kedai kopi.  **leaves the state of the world a little different**Sekarang kita memiliki 3 instance kasir yang disiapkan untuk menangani masalah ramainya pelanggan. **it has side effects**.
-
-Namun anehnya, kebanyakan dari mereka malah mengantre di satu instance kasir saja sehingga menyebabkan distribusi pelanggan yang tidak merata.
-
-
-
-## Side effect quiz
-
-Masalah ini bisa terjadi karena saat pelanggan tersebut datang, mereka tak yakin harus menuju ke kasir yang mana.
-
-
-
-
-## Question 1
-
-
-1. Lantas apa solusinya?
-
-
-
-
----
-
-**Side effects make code harder to reason about,** Akan sangat membantu jika kita mempekerjakan satu pegawai yang bertugas untuk menerima dan mengonfirmasi reservasi dari para pelanggan saat masuk ke kedai kopi. Peran semacam ini biasa disebut dengan nama host--bukan mesin fisik yang kita bahas sebelumnya ya--dan biasanya ditempatkan di depan pintu kedai kopi.
-
-**But we still need them.** Host akan senantiasa mengarahkan setiap pelanggan yang baru masuk untuk berbaris di kasir dengan antrean terpendek. Dengan demikian, antrean pun akan merata di seluruh kasir sehingga pelanggan dapat terlayani dengan efisien.
-
-
-
-## Reactive programming
-
-<div class="notes">
-Ide yang sama pun berlaku di lingkungan AWS. Katakanlah Anda memiliki beberapa EC2 instance yang menjalankan program serupa. Anda perlu mengarahkan setiap permintaan yang masuk untuk menuju ke EC2 instance tertentu. Anda juga harus memastikan bahwa distribusi beban kerja merata di seluruh EC2 instance sehingga tak ada satu instance pun yang menganggur.
-
-Proses dari apa yang sejak tadi kita bincangkan ini disebut dengan load balancing (menyeimbangkan beban). Sedangkan aplikasi yang dapat menerima permintaan lalu mengarahkannya ke instance untuk diproses disebut dengan load balancer (penyeimbang beban).
-
-Load balancer bertindak sebagai satu titik kontak untuk semua traffic web yang masuk ke Auto Scaling group Anda. Ini berarti saat Anda menambah atau menghapus Amazon EC2 instance sebagai respons terhadap jumlah traffic yang masuk, permintaan ini diarahkan ke load balancer terlebih dahulu. Barulah kemudian permintaan tersebut disebar ke berbagai sumber daya yang akan menanganinya.
-
-
-
-
-</div>
-
-
-
-## Ladder of Enlightenment
-
-> 1. Made it halfway through the tutorial. Has used `output` and `input`.
-> 2. Made it entirely through the tutorial. Has used reactive expressions (`reactive()`).
-> 3. Has used `observe()` and/or `observeEvent()`. Has written reactive expressions that depend on other reactive expressions. Has used `isolate()` properly.
-> 4. Can say confidently when to use `reactive()` vs. `observe()`. Has used `invalidateLater`.
-> 5. Writes higher-order reactives (functions that have reactive expressions as input parameters and return values).
-> 6. Understands that reactive expressions are monads.
-
-<div class="notes">
-Elastic Load Balancing
-
-AWS memiliki layanan load balancer yang berkinerja tinggi, hemat biaya, highly available (sangat tersedia), dan dapat diskalakan secara otomatis. Tak usah Anda menginstal, mengelola, memperbarui, melakukan scaling, menangani kegagalan, dan ketersediaan layanannya. AWS yang mengurus itu semua.
-
-Perkenalkan Elastic Load Balancing (ELB), yaitu layanan AWS yang secara otomatis mendistribusikan traffic aplikasi yang masuk ke berbagai sumber daya, seperti Amazon EC2 instance.
-
-
-Elastic Load Balancing merupakan salah satu layanan terkelola pertama yang akan kita telaah dalam kelas ini. Layanan ini dirancang untuk mengatasi undifferentiated heavy lifting--telah kita bahas di modul 1--dari load balancing.
 
 Sebagai permulaan, Elastic Load Balancing adalah regional construct (konstruksi regional). Ini berarti ELB berjalan di tingkat Region, bukan pada individu EC2 instance sehingga membuatnya highly available secara otomatis.
 
 ELB dapat diskalakan secara otomatis sehingga mampu menangani kepadatan traffic tanpa berdampak pada biaya per jamnya. Elastic Load Balancing dapat bekerja sama dengan Amazon EC2 Auto Scaling untuk membantu memastikan aplikasi yang berjalan di Amazon EC2 dapat memberikan kinerja dan ketersediaan tinggi.
 
-Mari kita ilustrasikan penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic.
-
-Anggaplah di suatu pagi aplikasi Anda memiliki traffic yang normal. Lalu di siang hari, Anda mengadakan promo flash sale secara besar-besaran di aplikasi bisnis Anda, tak lama kemudian lalu lintas pun semakin meningkat.
-
-Saat traffic membanjiri aplikasi Anda, EC2 instance akan melakukan scaling out. Saat instance siap, Amazon EC2 Auto Scaling akan memberi tahu Elastic Load Balancing bahwa ia siap untuk menangani traffic.
-
-Katakanlah malam tiba dan promo flash sale pun berakhir. Ini membuat traffic pada aplikasi Anda semakin berkurang sehingga Amazon EC2 Auto Scaling harus melakukan scaling in. Artinya, ada beberapa EC2 instance yang akan diakhiri.
-
-Tapi sebelum itu, ELB akan berhenti mengirimkan traffic kepada instance yang akan diakhiri tersebut dan menunggu hingga permintaan selesai ditangani. Setelah selesai, barulah Amazon EC2 Auto Scaling bisa mengakhiri instance tanpa mengganggu aktivitas pelanggan yang ada.
-
-Selain untuk lalu lintas eksternal, Anda juga bisa menggunakan ELB untuk traffic di dalam arsitektur AWS. Mari kita lihat ilustrasikan bagaimana ELB berperan menangani komunikasi untuk setiap instance di antara bidang pemesanan dan produksi.
 
 
-</div>
+## Mengarahkan Traffic dengan Elastic Load Balancing
+<div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
 
+Anggaplah di suatu pagi aplikasi Anda memiliki traffic yang normal. Lalu di siang hari, Anda mengadakan promo flash sale secara besar-besaran di aplikasi bisnis Anda, tak lama kemudian lalu lintas pun semakin meningkat.<br>
 
+Saat traffic membanjiri aplikasi Anda, EC2 instance akan melakukan scaling out. Saat instance siap, Amazon EC2 Auto Scaling akan memberi tahu Elastic Load Balancing bahwa ia siap untuk menangani traffic. <br>
 
-## Exercise 1
+Katakanlah malam tiba dan promo flash sale pun berakhir. Ini membuat traffic pada aplikasi Anda semakin berkurang sehingga Amazon EC2 Auto Scaling harus melakukan scaling in. Artinya, ada beberapa EC2 instance yang akan diakhiri. <br>
 
-Elastic Load Balancing merupakan salah satu layanan terkelola pertama yang akan kita telaah dalam kelas ini. Layanan ini dirancang untuk mengatasi undifferentiated heavy lifting--telah kita bahas di modul 1--dari load balancing.
+## Mengarahkan Traffic dengan Elastic Load Balancing
+Tapi sebelum itu, ELB akan berhenti mengirimkan traffic kepada instance yang akan diakhiri tersebut dan menunggu hingga permintaan selesai ditangani. Setelah selesai, barulah Amazon EC2 Auto Scaling bisa mengakhiri instance tanpa mengganggu aktivitas pelanggan yang ada.<br>
 
-Sebagai permulaan, Elastic Load Balancing adalah regional construct (konstruksi regional). Ini berarti ELB berjalan di tingkat Region, bukan pada individu EC2 instance sehingga membuatnya highly available secara otomatis.
+Sebelum menggunakan ELB, setiap instance di bidang pemesanan mengetahui seluruh instance produksi. Jadi, jika ada instance baru di bidang produksi, dia harus memberi tahu semua instance pemesanan bahwa sekarang dirinya dapat menerima traffic. Huh! Ini cukup rumit ya walau hanya ada 4 instance. <br>
 
-ELB dapat diskalakan secara otomatis sehingga mampu menangani kepadatan traffic tanpa berdampak pada biaya per jamnya. Elastic Load Balancing dapat bekerja sama dengan Amazon EC2 Auto Scaling untuk membantu memastikan aplikasi yang berjalan di Amazon EC2 dapat memberikan kinerja dan ketersediaan tinggi.
+Sekarang bayangkan jika Anda memiliki ratusan instance di kedua bidang tersebut. Ampun! Tak sanggup lagi Anda bayangkan akan betapa kacaunya. Dengan kompleksitas seperti itu, mustahil rasanya membuat mereka tetap terhubung secara efisien. <br>
 
-Mari kita ilustrasikan penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic.
+## Mengarahkan Traffic dengan Elastic Load Balancing
+Kita telah menyinggung di awal bahwa ELB bersifat regional. Ini membuat setiap instance di bidang pemesanan dapat menggunakan satu URL saja dan ELB pun akan mengarahkannya ke instance produksi yang memiliki permintaan paling sedikit.<br>
 
-Anggaplah di suatu pagi aplikasi Anda memiliki traffic yang normal. Lalu di siang hari, Anda mengadakan promo flash sale secara besar-besaran di aplikasi bisnis Anda, tak lama kemudian lalu lintas pun semakin meningkat.
-
-Saat traffic membanjiri aplikasi Anda, EC2 instance akan melakukan scaling out. Saat instance siap, Amazon EC2 Auto Scaling akan memberi tahu Elastic Load Balancing bahwa ia siap untuk menangani traffic.
-
-Katakanlah malam tiba dan promo flash sale pun berakhir. Ini membuat traffic pada aplikasi Anda semakin berkurang sehingga Amazon EC2 Auto Scaling harus melakukan scaling in. Artinya, ada beberapa EC2 instance yang akan diakhiri.
-
-Tapi sebelum itu, ELB akan berhenti mengirimkan traffic kepada instance yang akan diakhiri tersebut dan menunggu hingga permintaan selesai ditangani. Setelah selesai, barulah Amazon EC2 Auto Scaling bisa mengakhiri instance tanpa mengganggu aktivitas pelanggan yang ada.
-
-Selain untuk lalu lintas eksternal, Anda juga bisa menggunakan ELB untuk traffic di dalam arsitektur AWS. Mari kita lihat ilustrasikan bagaimana ELB berperan menangani komunikasi untuk setiap instance di antara bidang pemesanan dan produksi.
-
-Hint: `plot(head(cars, nrows))`
-
-<div class="notes">
-
-</div>
+Lantas, bagaimana jika ada instance baru di bidang produksi? Mudah. Instance tersebut cukup memberi tahu ELB bahwa dirinya siap menerima traffic. Instance di bidang pemesanan tak perlu tahu dan tak akan peduli ada berapa banyak instance yang berjalan di bidang produksi. Sekali lagi, inilah yang dinamakan decoupled architecture (arsitektur yang terpisah). <br>
 
 
 
 
-## Solution
 
-``` 
-output$plot <- renderPlot({
-  plot(head(cars, input$nrows))
-})
-```
 
-<div class="notes">
-Kita telah menyinggung di awal bahwa ELB bersifat regional. Ini membuat setiap instance di bidang pemesanan dapat menggunakan satu URL saja dan ELB pun akan mengarahkannya ke instance produksi yang memiliki permintaan paling sedikit.
+## Message and Queue 
+Message Queue adalah nama umum yang digunakan untuk suatu komponen yang bertugas untuk menerima data, menyimpannya dalam suatu rentang waktu, dan mengirimkannya suatu / beberapa tempat.
 
-Lantas, bagaimana jika ada instance baru di bidang produksi? Mudah. Instance tersebut cukup memberi tahu ELB bahwa dirinya siap menerima traffic. Instance di bidang pemesanan tak perlu tahu dan tak akan peduli ada berapa banyak instance yang berjalan di bidang produksi. Sekali lagi, inilah yang dinamakan decoupled architecture (arsitektur yang terpisah).
+Kalau di dunia nyata, mirip tujuannya dengan adanya jalur antrian.
 
-Ada lebih banyak lagi hal yang dapat dilakukan oleh ELB yang nanti akan kita pelajari. Kesimpulannya, pilihlah layanan yang tepat untuk tugas yang tepat. Itulah salah satu alasan mengapa AWS menawarkan begitu banyak layanan yang beragam.
+Misalnya kita punya aplikasi A yang mengirimkan pesan langsung ke aplikasi B. Jika aplikasi B mengalami kegagalan dan tak dapat menerima pesan tersebut, maka aplikasi A pun akan terkena eror juga. Desain aplikasi seperti ini dapat dianggap sebagai pendekatan monolithic application alias aplikasi monolitik, yaitu saat berbagai komponen digabungkan menjadi satu kesatuan.
 
-Selanjutnya, kita akan mengupas beberapa layanan lain yang mungkin bekerja lebih baik untuk beberapa arsitektur.
-</div>
+## next 
+Sama seperti di kedai kopi yang menyertakan buffer di antara kasir dan barista, kita juga dapat menggunakan komponen yang serupa, yaitu message queue (antrean pesan). Pesan dikirim ke antrean oleh aplikasi A dan diproses oleh aplikasi B. Jika aplikasi B gagal, aplikasi A tidak mengalami gangguan apa pun. Pesan yang dikirim masih dapat dikirim ke antrean dan akan tetap berada di sana sampai akhirnya diproses.
+
+Desain aplikasi semacam ini merupakan pendekatan dari microservice (layanan mikro), yaitu saat komponen dibuat menjadi loosely coupled sehingga dapat dikembangkan, di-deploy (diterapkan), dan dikelola secara independen. Setiap komponen mempunyai tugasnya masing-masing dan juga dapat berkomunikasi satu sama lain.
+
+For each function, write Yes if it has side effects, and No if not.
 
 
 
-## Anti-solution
+## Layanan Komputasi Tambahan
+<h3 style="font-size:25px">LAYANAN KOMPUTASI TAMBAHAN
+<p style="font-size:17px;text-align:justify">EC2 mengharuskan pengguna untuk mengatur dan mengelola instance dari waktu ke waktu. Saat pengguna menggunakan EC2, pengguna bertanggung jawab untuk:
+•	Melakukan patching (memperbaiki masalah dengan memperbarui program komputer) saat software package (paket perangkat lunak) yang baru tersedia.
+•	Menyiapkan scaling (penyesuaian kapasitas).
+•	Merancang aplikasi untuk dijalankan dengan cara yang highly available (sangat tersedia).
+Jika pengguna menggunakan data center on-premis, masih ada banyak hal lain yang harus pengguna kelola</p>
+<h3 style="font-size:25px">KOMPUTASI SERVERLESS</h3>
+<p style="font-size:17px;text-align:justify">Serverless berarti pengguna tidak dapat melihat dan mengakses infrastruktur dasar yang menjalankan aplikasi pengguna. Smeua pengelolaan lingkungan yang mendasari penyediaan, scaling, high availability ( ketersediaan tinggi), dan pemeliharaan sudah ditangani sehingga pengguna bisa fokus pada aplikasi yang akan dijalankan.</p>
 
-``` 
-observe({
-  df <- head(cars, input$nrows)
-  output$plot <- renderPlot(plot(df))
-})
-```
+<h3 style="font-size:25px">AWS LAMBDA
+<p style="font-size:20px;text-align:justify">AWS Lambda adalah layanan yang memungkinkan pengguna untuk menjalankan kode tanpa harus membuat atau mengelola server.</p>
+<h3 style="font-size:25px">CARA KERJA AWS LAMBDA
+<p style="font-size:17px;text-align:justify">
+  <ol style="font-size:20px; text-align:justify">
+  <li>Unggah kode pengguna ke AWS Lambda.</li>
+  <li>Konfigurasikan kode pengguna agar terpicu (trigger) dari sumber kejadian, seperti layanan AWS, aplikasi seluler, atau HTTP endpoint (titik akhir HTTP).</li>
+  <li>Kode berjalan hanya ketika mendapat trigger.</li>
+  <li>Cukup bayar sesuai waktu komputasi yang pengguna gunakan.</li>
+  </ol>
+</p>
 
-<div class="notes">
-This pattern of putting renderPlot inside of an observe, usually means the author has a fundamental misconception of what it means to assign a render code block to an output slot.
-</div>
-
-
-
----
-
-`output$plot1 <- renderPlot(...)`
-
-> - **DOESN'T mean:** "Go update the output `"plot1"` with the result of this code."
-> - **DOES mean:** "This code is the _recipe_ that should be used to update the output `"plot1"`."
-
-<div class="notes">
-Historically, we've asked you to take it on faith that whenever `input$nrows` changes, any dependent outputs, reactive expressions, and observers will do the right thing. But how does Shiny know how the code is related? How does it know which outputs depend on which inputs, reactives, etc.?
-
-There are really two possibilities: _static_ analysis, where we'd examine your code, looking for reactive-looking things; and _runtime_ analysis, where we'd execute your code and see what happens.
-
-We do the latter. Shiny just executes your code and sees what happens. It eavesdrops to see what reactive values (like `input`) or reactive expressions your output reads, and whatever it reads is considered a "dependency". Any changes to one of those dependencies means the output is considered out-of-date, or "invalidated", and might need to be re-executed.
-</div>
+## LAYANAN KOMPUTASI TAMBAHAN
+<h3 style="font-size:20px;line-height:0px">CONTAINER</h3>
+<p style="font-size:17px;text-align:justify">Container adalah pilihan lain dari serverless jika pengguna memerlukan akses ke infrastrukturnya dengaan efisiensi dan portabilitas, Contoh contairer seperti Amazon Elastic Container Service (Amazon ECS) dan Amazon Elastic Kubernetes Service (Amazon EKS). Keduanya merupakan layanan container orchestration alias okrkestrasi kontainer. Container dalam hal ini adalah Docker container.
+Docker adalah platform perangkat lunak populer yang menggunakan virtualisasi sistem operasi untuk memudahkan pengguna dalam membangun, menguji, dan men-deploy(menerapkan) aplikasi dengan cepat. Sementara container menyediakan cara untuk mengemas kode, konfigurasi, dan dependensi aplikasi pengguna ke dalam satu objek.</p>
 
 
-
-## Reactive expressions
-
-<div class="fragment">
-**Expressions** that are **reactive** <span class="fragment">(obviously)</span>
-</div>
-
-> - **Expression:** Code that _produces a value_
-> - **Reactive:** _Detects changes_ in anything reactive it reads
+<h3 style="font-size:20px;line-height:0px">STUDI KASUS: CONTAINER</h3>
+<p style="font-size: 17px;text-align:justify">Misal developer aplikasi di suatu perusahaan memiliki infrastruktur komputer yang berbeda dengan staf operasi IT. Developer tersebut ingin memastikan bahwa lingkungan aplikasi tetap konsisten terlepas dari deployment-nya (penerapannya) sehingga dia pun menggunakan pendekatan container.</p>
+<h3 style="font-size:20px;line-height:0px">AMAZON ELASTIC CONTAINER SERVICE (AMAZON ECS)</h3>
+<p style="font-size: 17px;text-align:justify">Amazon Elastic Container Service (Amazon ECS) adalah sistem manajemen container berkinerja tinggi yang dapat memungkinkan pengguna untuk menjalankan dan melakukan scaling terhadap containerized application ( aplikasi dalam kontainer) di AWS</p>
+<h3 style="font-size:20px;line-height:0px">AMAZON ELASTIC KUBERNETES SEVICE (AMAZON EKS)</h3>
+<p style="font-size: 17px;text-align:justify">Amazon Elastic Kubernetes Service (Amazon EKS) adalah layanan terkelola sepenuhnya yang dapat Pengguna gunakan untuk menjalankan Kubernetes di AWS.</p>
+<h3 style="font-size:20px;line-height:0px">AWS FARGAT</h3>
+<p style="font-size: 17px; text-align:justify">AWS Fargate adalah platform komputasi serverless untuk Amazon ECS dan Amazon EKS. Saat menggunakan layanan ini, Pengguna tak perlu menyediakan atau mengelola server karena AWS Fargate yang mengelolanya untuk Pengguna.</p>
 
 
 
----
+## Slide 8
 
 ```r
-function(input, output, session) {
-  # When input$min_size or input$max_size change, large_diamonds
-  # will be notified about it.
-  large_diamonds <- reactive({
-    diamonds %>%
-      filter(carat >= input$min_size) %>%
-      filter(carat < input$max_size)
-  })
-  
-  # If that happens, large_diamonds will notify output$table.
-  output$table <- renderTable({
-    large_diamonds() %>% select(carat, price)
-  })
-```
-
-
-
----
-
-```r
-  ... continued ...
-
-  # Reactive expressions can use other reactive expressions.
-  mean_price <- reactive({
-    mean(large_diamonds()$price)
-  })
-  
-  # large_diamonds and mean_price will both notify output$message
-  # of changes they detect.
-  output$message <- renderText({
-    paste0(nrow(large_diamonds()), " diamonds in that range, ",
-      "with an average price of $", mean_price())
-  })
+function(values) {
+  globalenv()$values <- values
+  values
 }
 ```
 
 
 
----
+## Slide 9
 
 ```r
-function(input, output, session) {
-  
-  # This DOESN'T work.
-  large_diamonds <- diamonds %>%
-    filter(carat >= input$min_size) %>%
-    filter(carat < input$max_size)
-  
-  output$table <- renderTable({
-    large_diamonds %>% select(carat, price)
-  })
+function() {
+  options(digits.secs = 6)
+  as.character(Sys.time())
 }
 ```
-
-`large_diamonds` would only be calculated once, as the session starts (i.e. as the page first loads in a browser).
-
-
-
-## Exercise 2
-
-Open up the file `Exercise_02.R`.
-
-There's a new `tableOutput("table")` in ui.R. Have it show the same data frame that is being plotted, using `renderTable`.
-
-**Make sure that the `head()` operation isn't performed more than once for each change to `input$nrows`.**
-
-You have 5 minutes.
-
-
-
-## Solution
-
-```r
-function(input, output, session) {
-
-  df <- reactive({
-    head(cars, input$nrows)
-  })
-  
-  output$plot <- renderPlot({
-    plot(df())
-  })
-  
-  output$table <- renderTable({
-    df()
-  })
-}
-```
-
-
-
-## Anti-solution 1
-
-``` 
-function(input, output, session) {
-
-  values <- reactiveValues(df = cars)
-  observe({
-    values$df <- head(cars, input$nrows)
-  })
-  
-  output$plot <- renderPlot({
-    plot(values$df)
-  })
-  
-  output$table <- renderTable({
-    values$df
-  })
-}
-```
-
-
-
-## Anti-solution 2
-
-``` 
-function(input, output, session) {
-
-  df <<- cars
-  observe({
-    df <<- head(cars, input$nrows)
-  })
-  
-  output$plot <- renderPlot({
-    plot(df)
-  })
-  
-  output$table <- renderTable({
-    df
-  })
-}
-```
-
-<div class="notes">
-Let's forget about that last one, since it doesn't work. What about the previous two? Let's talk about what they do. The first one uses a reactive expression to store the calculation. The second one creates a reactive values object and uses an observer to keep the value up-to-date. Who prefers the first approach? Who prefers the second?
-
-So we mostly agree that the first approach is superior. But why? It might feel like I'm just setting up strawmen, but I see this kind of code all the time on the shiny-discuss mailing list. It seems obvious when we lay it bare with a minimal example like this, but in the context of a more complicated app, it can be much trickier.
-
-We shouldn't take the second approach—but *why* shouldn't we take it? What's the first-principles reason to avoid this kind of code? We need some first-principles to build from so we can confidently answer these questions. You should be able to confidently answer these questions by the end of the tutorial.
-</div>
-
-
-
-## Observers
-
-
-
----
-
-Observers are blocks of code that **perform actions**.
-
-They're executed in response to changing reactive values/expressions.
-
-They don't return a value.
-
-```r
-observe({
-  cat("The value of input$x is now ", input$x, "\n")
-})
-```
-
-
-
-## Observers come in two flavors
-
-> 1. **Implicit:** Depend on _all_ reactive values/expressions encountered during execution.  
-`observe({...})`  
-&nbsp;
-> 2. **Explicit:** Just depend on _specific_ reactive value/expression; ignore all others. (Also known as "event handler".)  
-`observeEvent(eventExpr, {...})`
-
-
-
----
-
-```r
-function(input, output, session) {
-
-  # Executes immediately, and repeats whenever input$x changes.
-  observe({
-    cat("The value of input$x is now ", input$x, "\n")
-  })
-  
-  # Only executes when input$upload_button is pushed. Any reactive
-  # values/expressions encountered in the code block are treated
-  # as non-reactive values/expressions.
-  observeEvent(input$upload_button, {
-    httr::POST(server_url, jsonlite::toJSON(dataset()))
-  })
-}
-```
-
-
-
-## Exercise 3
-
-Open `Exercise_03.R`.
-
-Add server logic so that when the `input$save` button is pressed, the data is saved to a CSV file called `"data.csv"` in the current directory.
-
-You have 5 minutes!
-
-
-
-## Solution
-
-```r
-# Use observeEvent to tell Shiny what action to take
-# when input$save is clicked.
-observeEvent(input$save, {
-  write.csv(df(), "data.csv")
-})
-```
-
-
-
-## Reactive expressions vs. observers
-
-
-
-## `reactive()`
-
-> 1. It **can be called** and **returns a value**, like a function. Either the last expression, or `return()`.
-> 2. It's **lazy**. It doesn't execute its code until somebody calls it (even if its reactive dependencies have changed). Also like a function.
-> 3. It's **cached**. The first time it's called, it executes the code and saves the resulting value. Subsequent calls can skip the execution and just return the value.
-> 4. It's **reactive**. It is notified when its dependencies change. When that happens, it clears its cache and notifies it dependents.
-
-
-
----
-
-```r
-r1 <- function() { runif(1) }
-r1()
-# [1] 0.8403573
-r1()
-# [1] 0.4590713
-r1()
-# [1] 0.9816089
-```
-
-<div class="fragment">
-```r
-r2 <- reactive({ runif(1) })
-r2()
-# [1] 0.5327107
-r2()
-# [1] 0.5327107
-r2()
-# [1] 0.5327107
-```
-</div>
-
-
-
----
-
-The fact that reactive expressions are **lazy** and **cached**, is critical.
-
-<div class="fragment">
-It's **hard to reason about** when reactive expressions will execute their code—or whether they will be executed at all.
-</div>
-
-<div class="fragment">
-All Shiny guarantees is that **when you ask a reactive expression for an answer, you get an up-to-date one**.
-</div>
-
-
-
----
-
-```r
-function(input, output, session) {
-  reactive({
-    # This code will never execute!
-    cat("The value of input$x is now ", input$x, "\n")
-  })
-}
-```
-
-
-
-## `observe()` / `observeEvent()`
-
-> 1. It **can't be called** and **doesn't return a value**. The value of the last expression will be thrown away, as will values passed to `return()`.
-> 2. It's **eager**. When its dependencies change, it executes right away.
-> 3. (Since it can't be called and doesn't have a return value, there's no notion of caching that applies here.)
-> 4. It's **reactive**. It is notified when its dependencies change, and when that happens it executes (not right at that instant, but ASAP).
-
-
-
----
-
-`reactive()`          `observe()`
---------------------- ---------------------
-Callable              Not callable
-Returns a value       No return value
-Lazy                  Eager
-Cached                _N/A_
-
-<div class="notes">
-Don't worry, there won't be a quiz on this. All of this is to point the way towards the two things you _do_ need to remember.
-
-This next slide is the reason I wanted to have this conference in the first place.
-
-Are you ready?
-</div>
-
-
-
----
-
-- `reactive()` is for *calculating values, without side effects*.
-
-- `observe()` is for *performing actions, with side effects*.
-
-<div class="notes">
-This is what each of these is good for. Do not use an `observe` when calculating a value, and especially don't use `reactive` for performing actions with side effects.
-</div>
-
-
-
----
-
-A **calculation** is a block of code where you don't care about whether the code actually executes—you just want the answer. Safe for caching. **Use `reactive()`.**
-
-An **action** is where you care very much that the code executes, and there is no answer (return value), only side effects. **Use `observe()`/`observeEvent()`.**
-
-<div class="fragment">
-(What if you want both an answer AND you want the code to execute? Refactor into two code chunks--separate the calculation from the action.)
-</div>
-
-
-
----
-
-                  `reactive()`    `observe()`
------------------ --------------- ---------------
-**Purpose**       Calculations    Actions
-**Side effects?** Forbidden       Allowed
-
-
-
-## An easy way to remember
-
-<div class="fragment">
-Keep your side effects  
-Outside of your reactives  
-Or I will kill you
-
-_—Joe Cheng_
-</div>
-
-
-
-## Reactive values
-
-A `reactiveValues` object is like an environment object or a named list: it stores name/value pairs. You get and set values using `$` or `[[name]]`.
-
-```r
-rv <- reactiveValues(a = 10)
-
-rv$a
-# [1] 10
-
-rv$a <- 20
-
-rv[["a"]]
-# [1] 20
-```
-
-`input` is one (read-only) example.
-
-
-
-## Exercise 4
-
-Open file `Exercise_04.R`.
-
-Modify the server function so that when the "rnorm" button is clicked, the plot shows a new batch of `rnorm(100)` values. When "runif" button is clicked, the plot should show a new batch of `runif(100)`.
-
-You have 15 minutes this time.
-
-
-
-## Solution
-
-```r
-function(input, output, session) {
-  v <- reactiveValues(data = runif(100))
-  
-  observeEvent(input$runif, {
-    v$data <- runif(100)
-  })
-  
-  observeEvent(input$rnorm, {
-    v$data <- rnorm(100)
-  })  
-  
-  output$plot <- renderPlot({
-    hist(v$data)
-  })
-}
-```
-
-<div class="notes">
-We've identified a number of cases where we should use a reactive expression instead of an `observe(Event)`/`reactiveValues` pairing. But there are cases where you simply must use the latter.
-
-There are essentially cases where inputs, outputs, and reactive expressions aren't powerful enough to natively express the computations you want to perform. So you have the "escape hatch" of `observe`/`reactiveValues`; you can do things that would otherwise be impossible, at the price of your code being harder to reason about and harder for the reactive framework to help you with.
-
-- Accumulating values over time, not just reacting to the latest one
-- Aggregating multiple reactive values/expressions into a single expression
-- Adding artificial latency into reactive values/expressions
-
-In general, we want to stick to reactive expressions whenever possible. And when we really need to, break out the big guns of `observe(Event)`/`reactiveValues`.
-</div>
-
-
-
-## Exercise 5: Challenge!
-
-`Exercise_05.R` contains a broken application. See if you can figure out how to fix it!
-
-Read the comments in the file for more details.
-
-
-<!---
-------
-
-Now we have covered three fundamental units of reactivity: state (reactiveValues), calculations (reactive expressions), actions (observers). With these three pieces, we now have our first complete picture of reactivity.
-
-> Reactivity tracks **changing state** so that the appropriate **actions** can be taken automatically. In doing so, we specify **calculations** that represent intermediate values. The ideal reactive program always executes **necessary actions** while performing the **minimum number of calculations**. The framework accomplishes this by automatically **tracking dependencies**.
-
-There are two pieces we haven't covered: `isolate` and `invalidateLater`. Once we have those two pieces, everything else is accomplished by combining these five primitives:
-
-- `reactiveValues()`
-- `reactive()`
-- `observe()`
-- `isolate()`
-- `invalidateLater()`
-
-Here are just some of the things we can accomplish.
-
-- `input`
-- `output`/`render`
-- `validate` and `req`
-- `debounce` (see gist)
-- `shinySignals` (https://github.com/hadley/shinySignals)
-- `invokeLater` (see gist)
-- `observeEvent`, `eventReactive`
-
-------
-
-### Exercise 6: Use eventReactive to restrict when calculations invalidate
-
-**Concept:** Tie expensive calculations to action buttons.
-
-**Exercise:**
-
-**Anti-pattern:** Using observeEvent and reactiveValues.
-
-Let's go back and take a look at `observe` and `observeEvent`. They're both used for actions, that is to say, side effects. They differ in that `observe` _implicitly_ takes a reactive dependency on everything it reads—a change in anything will cause it to re-execute—while `observeEvent` only re-executes based on what you _explicitly_ tell it to.
-
-- Action, implicit reactivity: `observe`
-- Action, explicit reactivity: `observeEvent`
-- Calculation, implicit reactivity: `reactive`
-- Calculation, explicit reactivity: `eventReactive`
-
-Similarly, `eventReactive` is for declaring calculations that only invalidate based on what you _explicitly_ tell it to. 99% of the time, it's going to be action buttons.
-
-### Exercise 7: Checking preconditions with req
-
-**Concept:** `req` is a lightweight way to achieve cascading stopping of executions, that aren't error conditions.
-
-**Exercise:**
-
-**Anti-pattern:**
-
-### invalidateLater
-
-**Concept:** Use for anything that might change in the "real world" but not have any inherent effect on reactivity on its own.
-
-**Exercise:**
-
-**Anti-pattern:** Just using non-reactive things and expecting them to behave reactively.
-
-### Higher order reactives (bonus)
-
-**Concept:** Use reactive expressions as the primary unit to compute on, when writing higher-order reactives. Inputs and outputs should both be reactive expressions.
---->
