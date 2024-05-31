@@ -19,187 +19,123 @@ output:
     incremental: false
 ---
 
-## Pengantar Komputasi di Cloud
-<div style="color:blue">Pengenalan ke Amazon Elastic Compute Cloud (Amazon EC2)</div>
-Amazon EC2 adalah layanan AWS yang dapat digunakan untuk mendapatkan akses ke server virtual dengan menggunakan layanan EC2, kita memiliki kapasitas komputasi fleksibel, hemat biaya, dan cepat dibandingkan dengan menjalankan server sendiri di data center on-premise.
-<div style="color:blue"> Cara Kerja Amazon EC2 </div>
-1.	Luncurkan<br>
-Pada luncurkan pengguna dapat memilih sebuah template dengan konfigurasi dasar untuk instance pengguna.<br>
-2.	Hubungkan<br>
-Pada hubungkan pengguna dapat terhubung ke instance dengan beberapa cara. <br>
-3.	Gunakan<br>
-Pada tahap ini pengguna dapat melakukan aktivitas seperti menginstal perangkat lunak, menambah penyimpanan, menyalin dan mengatur file, dll.
+## Pengantar Infrastruktur Global dan Keandalan
+<img src="img1-S3.jpeg" style="max-width:50%; height:auto; position:relative"/>
+<p>Tahukah Anda hikmah cerita di atas? Janganlah kita menempatkan semua sumber daya hanya di satu data center saja. Karena jika terjadi hal yang tidak diinginkan pada data center tersebut--seperti pemadaman listrik atau bencana alam--semua aplikasi akan down (mati) sekaligus. Bahkan, memiliki dua data center pun tetap tidak cukup baik loh.</p>
 
 
-## Tipe instance amazon ec2
-<div style="color:blue">Tipe Instance Amazon EC2 </div>
-Setiap tipe instance dikelompokkan dalam satu instance family (keluarga instance) dan dioptimalkan untuk jenis tugas tertentu.
-Instance family di Amazon EC2 memiliki fungsi yang berbeda-beda. Di antaranya ada general purpose, compute optimized, memory optimized, accelerated computing (komputasi terakselerasi), dan storage optimized. Berikut uraiannya:
-<div style="color:blue"> Fungsi Instance family di Amazon EC2  </div>
-<li> Compute optimized instances (Instance teroptimasi untuk komputasi) </li>
-Tipe yang satu ini ideal untuk tugas komputasi yang intensif dan berpusat pada prosesor dengan performa tinggi, seperti server game, HPC (high-performance computing/komputasi dengan performa tinggi), atau bahkan pemodelan ilmiah.
+## Pengantar Infrastruktur Global dan Keandalan
+</p>Solusinya adalah Anda membutuhkan high availability (ketersediaan tinggi) dan fault tolerance (toleransi terhadap kesalahan). High availability adalah kemampuan untuk memastikan bahwa sistem selalu bekerja dan dapat diakses dengan waktu henti yang minimal tanpa memerlukan intervensi manusia. Sedangkan fault tolerance berarti sistem masih mampu beroperasi meskipun beberapa komponen mengalami kegagalan.
 
-## next 
-<li> Memory optimized instances (Instance teroptimasi untuk memori) </li>
-Opsi ini didesain untuk memberikan performa tinggi untuk beban kerja yang memproses kumpulan data besar di dalam memori, seperti relasional dan nonrelasional database atau HPC (high-performance computing). 
-<li> Accelerated computing instances (Instance terakselerasi untuk komputasi) </li>
-Opsi ini didesain untuk memberikan performa tinggi untuk beban kerja yang memproses kumpulan data besar di dalam memori, seperti relasional dan nonrelasional database atau HPC (high-performance computing).
+Faktanya, AWS beroperasi di lokasi yang berbeda-beda di seluruh dunia yang disebut Region. Tapi sabar ya. Kita baru akan membicarakan hal ini secara mendalam di modul mendatang.</p>
 
-Jika dianalogikan ke dalam skenario kedai kopi, kasir itu akan menjadi memory optimized instance, barista menjadi compute optimized instance, dan si pembuat seni pada latte adalah accelerated computing instance. Itulah tipe instance pada Amazon EC2.
+## Infrastruktur Global Aws
+<h1>AWS Regions</h1>
+AWS telah membangun Region di seluruh dunia agar permintaan traffic bisnis dapat dilayani oleh Region terdekat. Beberapa contoh lokasi Region adalah kota Paris, Tokyo, Sao Paulo, Dublin, Ohio, dll.
+Di dalam Region, AWS memiliki beberapa data center yang berisi semua sumber daya yang dibutuhkan seperti komputasi, penyimpanan, jaringan, dll.
+Setiap Region tersebut dapat terkoneksi ke Region lain melalui high speed fiber network (jaringan fiber berkecepatan tinggi) yang dikontrol oleh AWS--kita membutuhkannya untuk operasi yang benar-benar global dari satu lokasi ke lokasi lainnya di seluruh dunia.
 
+## Infrastruktur Global Aws
 
+AWS memungkinkan Anda untuk dapat memilih Region mana yang ingin dijalankan. Selain itu, setiap Region juga terisolasi dari Region lainnya. Ini berarti tidak akan ada data yang masuk atau keluar dari Region tersebut kecuali Anda secara eksplisit mengizinkan data itu untuk berpindah.
+Misalnya begini. Anda memiliki suatu persyaratan compliance (kepatuhan) dari pemerintah yang menyatakan bahwa informasi keuangan Anda yang berada di kota Frankfurt tidak dapat meninggalkan negara Jerman.
+Di sinilah bagaimana AWS benar-benar beroperasi secara out of the box alias unik. Di AWS:
 
-## Harga Amazon EC2
-<div style="color:blue">AWS memiliki beberapa pilihan penagihan terkait Amazon EC2.)</div>
-1.	On-Demand (Sesuai Permintaan)<br>
-    On-Demand adalah model pembayaran cloud di mana pengguna hanya membayar         untuk waktu penggunaan instance, baik per jam atau per detik. Model ini         cocok untuk penggunaan jangka pendek dan tidak memerlukan kontrak atau          pembayaran di muka.
-    
-2.	Savings Plans (Rencana Tabungan)<br>
-    Savings Plans memungkinkan pengguna mengurangi biaya komputasi dengan           berkomitmen terhadap jumlah dolar per jam dan penggunaan komputasi yang         konsisten selama 1 atau 3 tahun, memberikan penghematan hingga 72% pada         penggunaan komputasi AWS. AWS Cost Explorer membantu menganalisis penggunaan     Amazon EC2 dan memberikan rekomendasi untuk Savings Plans, membantu pengguna     memperkirakan potensi penghematan biaya bulanan.
-    
-## *
-3.	Reserved Instances (Instance Terpesan)<br>
-    Reserved Instances menawarkan diskon dengan komitmen penggunaan selama 1        atau 3 tahun, cocok untuk beban kerja stabil, dengan opsi pembayaran            fleksibel. Tersedia dalam Standard dan Convertible dengan diskon hingga 75%     dibandingkan On-Demand. Meskipun berakhir, pengguna dapat terus menggunakan     instance tanpa gangguan hingga membeli Reserved Instance baru.
-    
-4.	Spot Instances (Instance Spot)<br>
-    Spot Instances menggunakan kapasitas komputasi yang tidak terpakai dalam        Amazon EC2, memberikan penghematan biaya hingga 90% dari harga On-Demand.       Cocok untuk beban kerja fleksibel yang dapat menerima interupsi. Instance       akan diluncurkan saat kapasitas tersedia, dengan kemungkinan penarikan          kembali oleh AWS jika diperlukan.
-    
-## *
-5.	Dedicated Hosts (Host Khusus)<br>
-    Dedicated Hosts adalah server fisik Amazon EC2 yang didedikasikan sepenuhnya     untuk penggunaan Anda, ideal untuk kepatuhan dan pengelolaan lisensi            perangkat lunak.
-    
-<div style="color:blue"> note :
-    opsi harga Amazon EC2 yang sesuai: Spot Instances untuk beban kerja yang        fleksibel, Reserved Instance untuk penghematan dengan pembayaran lebih awal.     Namun, Dedicated Hosts adalah yang paling mahal.
-    
-## Slide 4
+## Infrastruktur Global Aws
 
-```r
-# Modifying *local* variables
-value <- 10
+•	Setiap data yang disimpan di Region Frankfurt tidak pernah meninggalkan Region Frankfurt.
+•	Setiap data di Region London tidak pernah meninggalkan Region London.
+•	Setiap data yang berada di Sydney tidak pernah meninggalkan Region Sydney
+Intinya, semua data yang disimpan di dalam Region, tak akan pernah meninggalkan Region tersebut, kecuali Anda secara eksplisit--dengan kredensial dan izin yang tepat--meminta data tersebut untuk diekspor.
+Regional data sovereignty atau kedaulatan data regional adalah bagian dari desain penting AWS Regions, di mana data mengikuti hukum dan undang-undang lokal negara tempat Region berada.
+Nah, setelah kita tahu bahwa data dan aplikasi akan tinggal dan berjalan di suatu Region, Anda harus memilih Region mana yang tepat dan sesuai dengan kebutuhan. Ada 4 faktor bisnis yang menentukan pemilihan suatu Region.
 
-# Creating most kinds of objects
-list(a = 1, b = 2)
+## Infrastruktur Global Aws
 
-# Data frames are pass-by-value in R so this is OK
-dataset <- dataset %>% filter(count > 3)
+1. Compliance (Kepatuhan)
+Misalnya, jika Anda memiliki persyaratan bahwa data Anda harus tinggal di perbatasan negara Inggris, maka pilihlah Region London. Atau jika Anda harus masuk ke dalam perbatasan negara Cina, maka Anda bisa memilih salah satu Region Cina.
 
-# Most calculations
-a + 1
-summary(pressure)
-lm(speed ~ dist, data = cars)
-predict(wfit, interval = "prediction")
-```
+Namun, sebagian besar perusahaan tidak diatur oleh regulasi yang ketat semacam itu. Jadi, jika Anda tidak memiliki kontrol kepatuhan atau regulasi yang mewajibkan penentuan Region, maka Anda dapat mempertimbangkan faktor lain.
+
+2.	Proximity (Kedekatan)
+Memilih region yang paling dekat dengan basis pelanggan akan membantu Anda untuk mengirimkan konten lebih cepat kepada mereka.
+
+## Infrastruktur Global Aws
+
+Katakanlah suatu perusahaan berlokasi di Washington, DC, namun kebanyakan pelanggannya tinggal di negara Singapura. Nah, untuk kasus ini, solusi yang tepat adalah dengan menjalankan infrastruktur di Region Northern Virginia agar dekat dengan lokasi perusahaan dan menerapkan aplikasi dari Region Singapura.
+
+Dengan begitu, latensi (waktu yang diperlukan untuk mengirim dan menerima data) bisa semakin kecil dan pengiriman konten ke pelanggan menjadi lebih cepat.
+3.	Feature Availability (Ketersediaan Fitur)
+Adakalanya, Region terdekat mungkin tidak memiliki semua fitur AWS yang Anda inginkan. Namun, AWS terus berinovasi untuk pelanggan. Setiap tahun, AWS merilis ribuan fitur dan produk baru secara spesifik untuk menjawab permintaan dan kebutuhan pelanggan.
+
+## Infrastruktur Global Aws
+
+Tapi, terkadang layanan baru tersebut membutuhkan banyak perangkat keras fisik baru yang harus AWS bangun agar dapat beroperasi. Dan terkadang, itu berarti AWS harus membangun layanan di satu Region pada satu waktu.
+
+Misal Anda ingin membangun sebuah aplikasi yang menggunakan Amazon Braket--platform komputasi kuantum baru AWS. Faktanya, layanan ini belum tersedia di seluruh AWS Regions sehingga Anda harus menjalankannya di Region yang menyediakannya.
+
+4.	Pricing (Harga)
+Meskipun spesifikasi perangkat keras pada suatu Region setara dengan Region lain, namun beberapa lokasi bisa lebih mahal pengoperasiannya.
 
 
 
-## Mengarahkan Traffic dengan Elastic Load Balancing)
+## Infrastruktur Global Aws
+Misal negara Brasil, struktur pajak di sana memiliki tatanan sedemikian rupa sehingga biaya AWS bisa jauh lebih mahal untuk mengoperasikan layanan yang sama persis dibandingkan dengan negara lain. Pengoperasian beban kerja yang sama persis di kota Sao Paulo mungkin bisa 50% lebih mahal daripada di kota Oregon di negara Amerika Serikat.
+Harga dapat ditentukan oleh banyak faktor dan AWS akan transparan mengenai hal tersebut.
 
-Perkenalkan Elastic Load Balancing (ELB), yaitu layanan AWS yang secara otomatis mendistribusikan traffic aplikasi yang masuk ke berbagai sumber daya, seperti Amazon EC2 instance. <br>
-
-
-Sebagai permulaan, Elastic Load Balancing adalah regional construct (konstruksi regional). Ini berarti ELB berjalan di tingkat Region, bukan pada individu EC2 instance sehingga membuatnya highly available secara otomatis.
-
-ELB dapat diskalakan secara otomatis sehingga mampu menangani kepadatan traffic tanpa berdampak pada biaya per jamnya. Elastic Load Balancing dapat bekerja sama dengan Amazon EC2 Auto Scaling untuk membantu memastikan aplikasi yang berjalan di Amazon EC2 dapat memberikan kinerja dan ketersediaan tinggi.
+Setiap Region memiliki harga yang berbeda-beda. Jadi, jika bujet adalah perhatian utama Anda, mungkin akan lebih baik untuk mengoperasikan lingkungan AWS Anda di negara lain meskipun basis pelanggan Anda tinggal di Brasil. Sekali lagi, ini berlaku jika anggaran adalah motivasi utama Anda.
+Jadi, itulah 4 faktor utama untuk memilih suatu Region: Compliance, Proximity, Feature availability, dan Pricing.
 
 
+## Edge Locations
+hal hebat tentang infrastruktur global AWS adalah caranya didesain untuk membantu Anda melayani pelanggan dengan lebih baik. Ingat kembali materi kita sebelumnya yang berkenaan dengan memilih Region. Salah satu kriteria utamanya adalah proximity alias kedekatan dengan pelanggan.
+AWS menyediakan solusinya. Daripada harus membangun kedai kopi baru, Anda dapat membangun kedai satelit (kedai kopi kecil di bawah pelayanan pusat distribusi yang sama) untuk melayani pelanggan Anda di kota tersebut.
 
-## Mengarahkan Traffic dengan Elastic Load Balancing
-<div style="color:green"> ilustrasi penggunaan ELB yang berkolaborasi bersama layanan Amazon EC2 Auto Scaling dalam menangani traffic </div>
+## Edge Locations
+AWS menyediakan solusinya. Daripada harus membangun kedai kopi baru, Anda dapat membangun kedai satelit (kedai kopi kecil di bawah pelayanan pusat distribusi yang sama) untuk melayani pelanggan Anda di kota tersebut.
 
-Anggaplah di suatu pagi aplikasi Anda memiliki traffic yang normal. Lalu di siang hari, Anda mengadakan promo flash sale secara besar-besaran di aplikasi bisnis Anda, tak lama kemudian lalu lintas pun semakin meningkat.<br>
+Mari kita lihat dari perspektif IT. Misalnya Anda memiliki pelanggan di kota Jakarta yang membutuhkan akses ke data aplikasi. Akan tetapi, data tersebut disimpan di Region Tokyo, tentu dengan jarak yang jauh ini akan menyebabkan latensi yang besar.
 
-Saat traffic membanjiri aplikasi Anda, EC2 instance akan melakukan scaling out. Saat instance siap, Amazon EC2 Auto Scaling akan memberi tahu Elastic Load Balancing bahwa ia siap untuk menangani traffic. <br>
+## Edge Locations
+saat pelanggan dari kota Jakarta mengakses salah satu data Anda, Amazon CloudFront--nanti kita bahas--akan mengambil data dari cache di Edge locations lalu mengirimkannya ke pelanggan tersebut. Data tadi terkirim lebih cepat karena berasal dari Edge locations Singapura--yang jaraknya lebih dekat dengan kota Jakarta--bukan dari Tokyo.
 
-Katakanlah malam tiba dan promo flash sale pun berakhir. Ini membuat traffic pada aplikasi Anda semakin berkurang sehingga Amazon EC2 Auto Scaling harus melakukan scaling in. Artinya, ada beberapa EC2 instance yang akan diakhiri. <br>
+Teknik menyimpan salinan data di cache dengan lokasi yang lebih dekat dengan pelanggan di seluruh dunia adalah konsep yang digunakan oleh jaringan pengiriman konten alias content delivery network (CDN). Di AWS, CDN disebut dengan Amazon CloudFront.
 
-## Mengarahkan Traffic dengan Elastic Load Balancing
-Tapi sebelum itu, ELB akan berhenti mengirimkan traffic kepada instance yang akan diakhiri tersebut dan menunggu hingga permintaan selesai ditangani. Setelah selesai, barulah Amazon EC2 Auto Scaling bisa mengakhiri instance tanpa mengganggu aktivitas pelanggan yang ada.<br>
+## Edge Locations
+Amazon CloudFront adalah layanan yang dapat membantu Anda untuk mengirimkan data, video, aplikasi, dan API ke pelanggan di seluruh dunia dengan latensi rendah dan kecepatan transfer yang tinggi. Amazon CloudFront menggunakan Edge locations di seluruh dunia untuk membantu mempercepat komunikasi dengan pengguna--di mana pun mereka berada.
 
-Sebelum menggunakan ELB, setiap instance di bidang pemesanan mengetahui seluruh instance produksi. Jadi, jika ada instance baru di bidang produksi, dia harus memberi tahu semua instance pemesanan bahwa sekarang dirinya dapat menerima traffic. Huh! Ini cukup rumit ya walau hanya ada 4 instance. <br>
+Jadi, Edge locations adalah lokasi yang digunakan Amazon CloudFront untuk menyimpan salinan cache dengan jarak yang dekat dengan pelanggan sehingga konten dapat terkirim lebih cepat.
 
-Sekarang bayangkan jika Anda memiliki ratusan instance di kedua bidang tersebut. Ampun! Tak sanggup lagi Anda bayangkan akan betapa kacaunya. Dengan kompleksitas seperti itu, mustahil rasanya membuat mereka tetap terhubung secara efisien. <br>
+## Edge Locations
+Ketahuilah! Edge locations itu terpisah dari AWS Regions. Sehingga, Anda dapat mengirim konten dari dalam Region ke kumpulan Edge locations di seluruh dunia.
 
-## Mengarahkan Traffic dengan Elastic Load Balancing
-Kita telah menyinggung di awal bahwa ELB bersifat regional. Ini membuat setiap instance di bidang pemesanan dapat menggunakan satu URL saja dan ELB pun akan mengarahkannya ke instance produksi yang memiliki permintaan paling sedikit.<br>
+AWS Edge locations tak hanya berguna untuk menjalankan CloudFront, melainkan juga layanan domain name system (DNS) atau sistem nama domain yang dikenal sebagai Amazon Route 53. Layanan ini dapat membantu mengarahkan pelanggan ke lokasi web yang tepat dengan latensi rendah yang andal.
 
-Lantas, bagaimana jika ada instance baru di bidang produksi? Mudah. Instance tersebut cukup memberi tahu ELB bahwa dirinya siap menerima traffic. Instance di bidang pemesanan tak perlu tahu dan tak akan peduli ada berapa banyak instance yang berjalan di bidang produksi. Sekali lagi, inilah yang dinamakan decoupled architecture (arsitektur yang terpisah). <br>
+## Edge Locations
+Perkenalkan, AWS Outposts. Dengan layanan ini, pada dasarnya, AWS akan menginstal Region mini yang beroperasi penuh, tepat di dalam data center Anda sendiri. Semua infrastruktur dan layanan tersebut dimiliki serta dioperasikan oleh AWS menggunakan 100% kegunaan AWS namun tetap terisolasi di dalam data center Anda.
 
+AWS Outposts bukanlah solusi yang dibutuhkan bagi sebagian besar pelanggan AWS. Tetapi, jika Anda memiliki masalah tertentu yang hanya dapat diselesaikan dengan tetap berada di dalam data center Anda sendiri, AWS Outposts dapat menjadi jalan keluarnya.
 
+## Edge Locations
+tentang infrastruktur global AWS.
+<p>1.Region adalah wilayah yang terisolasi secara geografis di mana Anda dapat mengakses layanan yang diperlukan untuk menjalankan segala macam kebutuhan.</p>
+<p>2.Region terdiri dari Availability Zone yang memungkinkan Anda untuk menjalankan seluruh bangunan data center yang terpisah secara fisik dengan jarak puluhan mil sambil menjaga aplikasi Anda tetap bersatu secara logis.Availability Zone membantu Anda untuk dapat mencapai high availability (ketersediaan tinggi) dan disaster recovery (pemulihan bencana) tanpa upaya apa pun dari Anda.</p>
+<p>3. AWS Edge locations digunakan untuk menjalankan Amazon CloudFront sehingga dapat memperdekat konten kepada pelanggan Anda di mana pun mereka berada.</p>
 
+## Cara Menyediakan Sumber Daya AWS
+<img src="img2-S3.png" style="max-width:50%; height:auto; position:relative"/>
+AWS Management Console adalah antarmuka berbasis browser yang dapat digunakan untuk mengakses dan mengelola layanan AWS. Melalui console (konsol), Anda dapat mengelola sumber daya AWS secara visual dan dengan cara yang mudah dipahami. Tentu ini adalah cara yang ideal untuk memulai dan membangun pengetahuan Anda tentang layanan AWS.
 
+## Cara Menyediakan Sumber Daya AWS
+<img src="img3-S3.png" style="max-width:50%; height:auto; position:relative"/>
+CLI memungkinkan Anda untuk mengendalikan layanan AWS dengan baris perintah melalui satu alat. Jelas ini berbeda dengan gaya navigasi visual dari AWS Management Console. AWS CLI tersedia untuk pengguna Windows, macOS, dan Linux.Dengan menulis perintah menggunakan CLI, Anda dapat membuat tindakan yang dapat ditulis berkali-kali. 
 
+## Cara Menyediakan Sumber Daya AWS
+<img src="img4-S3.png" style="max-width:50%; height:auto; position:relative"/>Cara lain untuk berkomunikasi dengan AWS adalah melalui AWS Software Development Kit atau SDK. SDK memudahkan Anda untuk berinteraksi dengan sumber daya AWS melalui berbagai bahasa pemrograman.
 
-## Message and Queue 
-Message Queue adalah nama umum yang digunakan untuk suatu komponen yang bertugas untuk menerima data, menyimpannya dalam suatu rentang waktu, dan mengirimkannya suatu / beberapa tempat.
+## Cara Menyediakan Sumber Daya AWS
+<h2>AWS Elastic Beanstalk</h2>
+AWS Elastic Beanstalk adalah layanan yang dapat membantu Anda menyediakan lingkungan berbasis Amazon EC2. Tak perlu lagi harus klik sana sini di console atau menulis beberapa baris perintah untuk membangun jaringan, EC2 instance, scaling (penyesuaian kapasitas), dan Elastic Load Balancer.
 
-Kalau di dunia nyata, mirip tujuannya dengan adanya jalur antrian.
-
-Misalnya kita punya aplikasi A yang mengirimkan pesan langsung ke aplikasi B. Jika aplikasi B mengalami kegagalan dan tak dapat menerima pesan tersebut, maka aplikasi A pun akan terkena eror juga. Desain aplikasi seperti ini dapat dianggap sebagai pendekatan monolithic application alias aplikasi monolitik, yaitu saat berbagai komponen digabungkan menjadi satu kesatuan.
-
-## next 
-Sama seperti di kedai kopi yang menyertakan buffer di antara kasir dan barista, kita juga dapat menggunakan komponen yang serupa, yaitu message queue (antrean pesan). Pesan dikirim ke antrean oleh aplikasi A dan diproses oleh aplikasi B. Jika aplikasi B gagal, aplikasi A tidak mengalami gangguan apa pun. Pesan yang dikirim masih dapat dikirim ke antrean dan akan tetap berada di sana sampai akhirnya diproses.
-
-Desain aplikasi semacam ini merupakan pendekatan dari microservice (layanan mikro), yaitu saat komponen dibuat menjadi loosely coupled sehingga dapat dikembangkan, di-deploy (diterapkan), dan dikelola secara independen. Setiap komponen mempunyai tugasnya masing-masing dan juga dapat berkomunikasi satu sama lain.
-
-For each function, write Yes if it has side effects, and No if not.
-
-
-
-## Layanan Komputasi Tambahan
-<h3 style="font-size:25px">LAYANAN KOMPUTASI TAMBAHAN
-<p style="font-size:17px;text-align:justify">EC2 mengharuskan pengguna untuk mengatur dan mengelola instance dari waktu ke waktu. Saat pengguna menggunakan EC2, pengguna bertanggung jawab untuk:
-•	Melakukan patching (memperbaiki masalah dengan memperbarui program komputer) saat software package (paket perangkat lunak) yang baru tersedia.
-•	Menyiapkan scaling (penyesuaian kapasitas).
-•	Merancang aplikasi untuk dijalankan dengan cara yang highly available (sangat tersedia).
-Jika pengguna menggunakan data center on-premis, masih ada banyak hal lain yang harus pengguna kelola</p>
-<h3 style="font-size:25px">KOMPUTASI SERVERLESS</h3>
-<p style="font-size:17px;text-align:justify">Serverless berarti pengguna tidak dapat melihat dan mengakses infrastruktur dasar yang menjalankan aplikasi pengguna. Smeua pengelolaan lingkungan yang mendasari penyediaan, scaling, high availability ( ketersediaan tinggi), dan pemeliharaan sudah ditangani sehingga pengguna bisa fokus pada aplikasi yang akan dijalankan.</p>
-
-<h3 style="font-size:25px">AWS LAMBDA
-<p style="font-size:20px;text-align:justify">AWS Lambda adalah layanan yang memungkinkan pengguna untuk menjalankan kode tanpa harus membuat atau mengelola server.</p>
-<h3 style="font-size:25px">CARA KERJA AWS LAMBDA
-<p style="font-size:17px;text-align:justify">
-  <ol style="font-size:20px; text-align:justify">
-  <li>Unggah kode pengguna ke AWS Lambda.</li>
-  <li>Konfigurasikan kode pengguna agar terpicu (trigger) dari sumber kejadian, seperti layanan AWS, aplikasi seluler, atau HTTP endpoint (titik akhir HTTP).</li>
-  <li>Kode berjalan hanya ketika mendapat trigger.</li>
-  <li>Cukup bayar sesuai waktu komputasi yang pengguna gunakan.</li>
-  </ol>
-</p>
-
-## LAYANAN KOMPUTASI TAMBAHAN
-<h3 style="font-size:20px;line-height:0px">CONTAINER</h3>
-<p style="font-size:17px;text-align:justify">Container adalah pilihan lain dari serverless jika pengguna memerlukan akses ke infrastrukturnya dengaan efisiensi dan portabilitas, Contoh contairer seperti Amazon Elastic Container Service (Amazon ECS) dan Amazon Elastic Kubernetes Service (Amazon EKS). Keduanya merupakan layanan container orchestration alias okrkestrasi kontainer. Container dalam hal ini adalah Docker container.
-Docker adalah platform perangkat lunak populer yang menggunakan virtualisasi sistem operasi untuk memudahkan pengguna dalam membangun, menguji, dan men-deploy(menerapkan) aplikasi dengan cepat. Sementara container menyediakan cara untuk mengemas kode, konfigurasi, dan dependensi aplikasi pengguna ke dalam satu objek.</p>
-
-
-<h3 style="font-size:20px;line-height:0px">STUDI KASUS: CONTAINER</h3>
-<p style="font-size: 17px;text-align:justify">Misal developer aplikasi di suatu perusahaan memiliki infrastruktur komputer yang berbeda dengan staf operasi IT. Developer tersebut ingin memastikan bahwa lingkungan aplikasi tetap konsisten terlepas dari deployment-nya (penerapannya) sehingga dia pun menggunakan pendekatan container.</p>
-<h3 style="font-size:20px;line-height:0px">AMAZON ELASTIC CONTAINER SERVICE (AMAZON ECS)</h3>
-<p style="font-size: 17px;text-align:justify">Amazon Elastic Container Service (Amazon ECS) adalah sistem manajemen container berkinerja tinggi yang dapat memungkinkan pengguna untuk menjalankan dan melakukan scaling terhadap containerized application ( aplikasi dalam kontainer) di AWS</p>
-<h3 style="font-size:20px;line-height:0px">AMAZON ELASTIC KUBERNETES SEVICE (AMAZON EKS)</h3>
-<p style="font-size: 17px;text-align:justify">Amazon Elastic Kubernetes Service (Amazon EKS) adalah layanan terkelola sepenuhnya yang dapat Pengguna gunakan untuk menjalankan Kubernetes di AWS.</p>
-<h3 style="font-size:20px;line-height:0px">AWS FARGAT</h3>
-<p style="font-size: 17px; text-align:justify">AWS Fargate adalah platform komputasi serverless untuk Amazon ECS dan Amazon EKS. Saat menggunakan layanan ini, Pengguna tak perlu menyediakan atau mengelola server karena AWS Fargate yang mengelolanya untuk Pengguna.</p>
-
-
-
-## Slide 8
-
-```r
-function(values) {
-  globalenv()$values <- values
-  values
-}
-```
-
-
-
-## Slide 9
-
-```r
-function() {
-  options(digits.secs = 6)
-  as.character(Sys.time())
-}
-```
+<h2>AWS CloudFormation</h2>
+AWS CloudFormation adalah layanan infrastructure as code (infrastruktur sebagai kode) yang memungkinkan Anda untuk menentukan berbagai sumber daya AWS dengan cara deklaratif menggunakan dokumen berbasis teks JSON atau YAML yang disebut sebagai CloudFormation template.
